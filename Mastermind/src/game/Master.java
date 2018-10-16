@@ -27,19 +27,19 @@ public class Master {
 	 *         wrong position
 	 */
 	public int[] checkWin(Colors[] ins) {
-		int[] g = new int[2];
+		int[] r = new int[2];
 		for (int i = 0; i < ins.length; i++) {
 			for (int c = 0; c < ins.length; c++) {
 				if (ins[i] == seq[c]) {
 					if (i == c)
-						g[0]++;
+						r[0]++;
 					else
-						g[1]++;
+						r[1]++;
 					break;
 				}
 			}
 		}
-		return g;
+		return r;
 	}
 
 	/**
