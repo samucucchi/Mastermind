@@ -2,7 +2,6 @@ Correzione test ed eccezioni
 Inserire difficoltà definendo i tentativi in base alla lunghezza della stringa da inserire. 
 Cambiare l'inserimento dei colori da terminale (rendere più utilizzabile), se non si fa la GUI 
 
-
 BONUS
 Implementazione DB
 Gara tra due giocatori nell'indovinare per primi una sequenza condivisa 
