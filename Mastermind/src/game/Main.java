@@ -52,7 +52,10 @@ public class Main {
 				master = new Master(new Game(d, c, maxAttempts), takeSequence(seqLength));
 			}
 		} else {
-			throw new ExceptionMain();
+			//throw new ExceptionMain();
+			//uscire dal programma o permettere di reinserire il numero di giocatori?
+			System.out.println("Non è possibile inserire " + numOfPlayers + " giocatori: Riprovare.");
+			startGame();
 		}
 	}
 
