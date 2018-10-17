@@ -26,7 +26,7 @@ public class Master {
 	 * @return Integer[]: [0] color guessed in right position, [1] color guessed in
 	 *         wrong position
 	 */
-	public int[] checkWin(Colors[] ins) {
+/*	public int[] checkWin(Colors[] ins) {
 		int[] r = new int[2];
 		for (int i = 0; i < ins.length; i++) {
 			for (int c = 0; c < ins.length; c++) {
@@ -40,6 +40,40 @@ public class Master {
 			}
 		}
 		return r;
+	}*/
+
+	/**
+	 * @param ins : array containing the values inserted by the decoder
+	 * @return how much values have been guessed in right position
+	 */
+	public int getRightPosition(Colors[] ins) {
+		int counter = 0;
+		for (int i = 0; i < ins.length; i++) {
+			if (ins[i] == seq[i]) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	/**
+	 * 
+	 * @param ins : array containing the values inserted by the decoder
+	 * @return how much values have been guessed in right position
+	 */
+	public int getWrongPosition(Colors[] ins) {
+		int counter = 0;
+		for (int i = 0; i < ins.length; i++) {
+			for (int c = 0; c < ins.length; c++) {
+				if (ins[i] == seq[i]) {
+					counter++;
+					if (counter == ins.length) { // if ins.lenght have been guessed, is useless to continue to search
+						break;
+					}
+				}
+			}
+		}
+		return counter;
 	}
 
 	/**
