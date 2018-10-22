@@ -33,7 +33,7 @@ public class Game {
 	
 	public void saveGame() {
 		this.finished = true;
-		// TODO set DB to store games history
+		//TODO set DB to store games history
 	}
 	
 	public int getMaxAttempts() {
