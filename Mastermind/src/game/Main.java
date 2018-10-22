@@ -80,7 +80,9 @@ public class Main {
 	
 	private static boolean tryToGuess() {
 		System.out.println("Inserire una sequenza");
-		int result[] = master.checkWin(takeSequence(master.getSeqLength()));
+		int result[] = new int[2];
+		result[0] = master.getRightPosition(takeSequence(master.getSeqLength()));
+		result[1] = master.getWrongPosition(takeSequence(master.getSeqLength()));
 		if(result[0] == master.getSeqLength()) {
 			return true; 
 		} else {
