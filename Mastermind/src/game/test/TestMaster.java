@@ -13,3 +13,5 @@ class TestMaster {
 		assertEquals(5, m.getSeqLength());
 	}
 }
+
+// STO PROVANDO IL LOADING 
