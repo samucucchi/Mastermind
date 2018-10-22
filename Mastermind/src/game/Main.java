@@ -17,9 +17,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		boolean win = false; 
+		// boolean win = false; 
 		for(int i = 0; i < master.getGame().getMaxAttempts(); i++) {
-			if(win = tryToGuess()) {
+			if(/*win = */tryToGuess()) {
 				System.out.println("Sequenza indovinata"); 
 				return;
 			}

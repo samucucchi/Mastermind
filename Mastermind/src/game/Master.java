@@ -19,7 +19,6 @@ public class Master {
 		this.game = game;
 		this.seq = seq;
 	}
-
 	/**
 	 * @param ins : sequence inserted from the player
 	 * @param seq : sequence to guess
