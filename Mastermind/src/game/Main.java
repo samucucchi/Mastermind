@@ -16,11 +16,11 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// boolean win = false; 
-		for(int i = 0; i < master.getGame().getMaxAttempts(); i++) {
-			if(/*win = */tryToGuess()) {
-				System.out.println("Sequenza indovinata"); 
+
+		// boolean win = false;
+		for (int i = 0; i < master.getGame().getMaxAttempts(); i++) {
+			if (/* win = */tryToGuess()) {
+				System.out.println("Sequenza indovinata");
 				return;
 			}
 		}
@@ -34,29 +34,14 @@ public class Main {
 	 * @throws ExceptionMain if wrong number of players have been inserted
 	 */
 	private static void startGame() throws ExceptionMain {
-		System.out.println("Inserire numero giocatori");
-		int numOfPlayers = Integer.parseInt(sc.nextLine()), maxAttempts, seqLength;
-		if (numOfPlayers > 0 && numOfPlayers < 3) {
-			System.out.println("Inserire la lunghezza della sequenza da indovinare");
-			seqLength = Integer.parseInt(sc.nextLine());
-			System.out.println("Inserire numero massimo di tentativi");
-			maxAttempts = Integer.parseInt(sc.nextLine());
-			System.out.println("Inserire username decodificatore");
-			Decoder d = new Decoder(sc.nextLine());
-			if (numOfPlayers == 1) {
-				master = new Master(new Game(d, maxAttempts), seqLength);
-			} else if (numOfPlayers == 2) {
-				System.out.println("Inserire il nome del codificatore");
-				Codifier c = new Codifier(sc.nextLine());
-				System.out.println("Inserire la sequenza da indovinare");
-				master = new Master(new Game(d, c, maxAttempts), takeSequence(seqLength));
-			}
-		} else {
-			//throw new ExceptionMain();
-			//uscire dal programma o permettere di reinserire il numero di giocatori?
-			System.out.println("Non è possibile inserire " + numOfPlayers + " giocatori: Riprovare.");
-			startGame();
-		}
+		int maxAttempts, seqLength;
+		System.out.println("Inserire la lunghezza della sequenza da indovinare");
+		seqLength = Integer.parseInt(sc.nextLine());
+		System.out.println("Inserire numero massimo di tentativi");
+		maxAttempts = Integer.parseInt(sc.nextLine());
+		System.out.println("Inserire username decodificatore");
+		Decoder d = new Decoder(sc.nextLine());
+		master = new Master(new Game(d, maxAttempts), seqLength);
 	}
 
 	/**
@@ -77,14 +62,14 @@ public class Main {
 		}
 		return seq;
 	}
-	
+
 	private static boolean tryToGuess() {
 		System.out.println("Inserire una sequenza");
 		int result[] = new int[2];
 		result[0] = master.getRightPosition(takeSequence(master.getSeqLength()));
 		result[1] = master.getWrongPosition(takeSequence(master.getSeqLength()));
-		if(result[0] == master.getSeqLength()) {
-			return true; 
+		if (result[0] == master.getSeqLength()) {
+			return true;
 		} else {
 			System.out.println(result[0] + " colori in posizione corretta");
 			System.out.println(result[1] + " colori in posizione errata");

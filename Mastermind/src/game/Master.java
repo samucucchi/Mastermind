@@ -13,34 +13,10 @@ public class Master {
 	public Master(Game game, int seqLength) {
 		this.game = game;
 		this.seq = generateSequence(seqLength);
+		//difficoltà
+		//GUI
 	}
-
-	public Master(Game game, Colors[] seq) {
-		this.game = game;
-		this.seq = seq;
-	}
-	/**
-	 * @param ins : sequence inserted from the player
-	 * @param seq : sequence to guess
-	 * @return Integer[]: [0] color guessed in right position, [1] color guessed in
-	 *         wrong position
-	 */
-/*	public int[] checkWin(Colors[] ins) {
-		int[] r = new int[2];
-		for (int i = 0; i < ins.length; i++) {
-			for (int c = 0; c < ins.length; c++) {
-				if (ins[i] == seq[c]) {
-					if (i == c)
-						r[0]++;
-					else
-						r[1]++;
-					break;
-				}
-			}
-		}
-		return r;
-	}*/
-
+	
 	/**
 	 * @param ins : array containing the values inserted by the decoder
 	 * @return how much values have been guessed in right position
