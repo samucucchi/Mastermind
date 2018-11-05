@@ -40,7 +40,7 @@ public class Master {
 		int counter = 0;
 		for (int i = 0; i < ins.length; i++) {
 			for (int c = 0; c < ins.length; c++) {
-				if (ins[i] == seq[i]) {
+				if (ins[i] == seq[c] && i != c) {
 					counter++;
 					if (counter == ins.length) { // if ins.lenght have been guessed, is useless to continue to search
 						break;

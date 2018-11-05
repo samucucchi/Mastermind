@@ -19,7 +19,7 @@ public class Main {
 
 		// boolean win = false;
 		for (int i = 0; i < master.getGame().getMaxAttempts(); i++) {
-			if (/* win = */tryToGuess()) {
+			if (tryToGuess()) {
 				System.out.println("Sequenza indovinata");
 				return;
 			}
@@ -44,14 +44,31 @@ public class Main {
 		master = new Master(new Game(d, maxAttempts), seqLength);
 	}
 
+	private static boolean tryToGuess() {
+		System.out.println("Inserire una sequenza");
+		int result[] = new int[2];
+		Colors[] inserted = takeSequence();
+		result[0] = master.getRightPosition(inserted);
+		result[1] = master.getWrongPosition(inserted);
+		if (result[0] == master.getSeqLength()) {
+			return true;
+		} else {
+			System.out.println(result[0] + " colori in posizione corretta");
+			System.out.println(result[1] + " colori in posizione errata");
+			System.out.println((master.getSeqLength() - (result[0] + result[1])) + " colori errati");
+			return false;
+		}
+	}
+	
 	/**
-	 * 
 	 * @param l length of sequence
 	 * @return sequence inserted
+	 * 
+	 * Takes in input a sequence of colors
 	 */
-	private static Colors[] takeSequence(int l) {
-		Colors[] seq = new Colors[l];
-		for (int i = 0; i < l; i++) {
+	private static Colors[] takeSequence() {
+		Colors[] seq = new Colors[master.getSeqLength()];
+		for (int i = 0; i < master.getSeqLength(); i++) {
 			try {
 				seq[i] = Colors.valueOf(sc.nextLine());
 			} catch (Exception e) {
@@ -61,20 +78,5 @@ public class Main {
 			}
 		}
 		return seq;
-	}
-
-	private static boolean tryToGuess() {
-		System.out.println("Inserire una sequenza");
-		int result[] = new int[2];
-		result[0] = master.getRightPosition(takeSequence(master.getSeqLength()));
-		result[1] = master.getWrongPosition(takeSequence(master.getSeqLength()));
-		if (result[0] == master.getSeqLength()) {
-			return true;
-		} else {
-			System.out.println(result[0] + " colori in posizione corretta");
-			System.out.println(result[1] + " colori in posizione errata");
-			System.out.println((master.getSeqLength() - (result[0] + result[1])) + " colori errati");
-			return false;
-		}
 	}
 }
