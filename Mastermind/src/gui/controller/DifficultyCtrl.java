@@ -12,7 +12,6 @@ public class DifficultyCtrl {
 	private void startGame(ActionEvent event) throws IOException {
 		//prendo l'id del bottone
 		String difficulty = ((Button)event.getSource()).getId();
-		System.out.println(difficulty);
-		SceneCtrl.showGame();
+		SceneCtrl.showGame(difficulty);
 	}
 }
