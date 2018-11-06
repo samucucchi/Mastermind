@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SceneCtrl {
@@ -32,4 +33,10 @@ public class SceneCtrl {
 		SceneCtrl.primaryStage.setScene(new Scene(difficultyMenu));
 	}
 
+	public static void showGame() throws IOException{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(SceneCtrl.class.getResource("../views/Game.fxml"));
+		HBox game = loader.load();
+		SceneCtrl.primaryStage.setScene(new Scene(game));
+	}
 }
