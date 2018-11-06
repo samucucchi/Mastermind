@@ -12,7 +12,7 @@ public class MainMenuCtrl {
 	@FXML
 	private void play(ActionEvent event) throws IOException {
 		System.out.println("ciao");
-		Main.showDifficultyMenu();
+		SceneCtrl.showDifficultyMenu();
 	}
 	
 	@FXML
