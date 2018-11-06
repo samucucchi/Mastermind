@@ -34,29 +34,28 @@ public class SceneCtrl {
 	}
 
 	public static void showGame(String difficulty) throws IOException{
-		HBox game = (HBox) loadView("../views/Game.fxml");
-		String boardPath;
+		String gamePath;
 		switch(difficulty) {
 		case "easy":
-			boardPath = "../views/Easy.fxml";
+			gamePath = "../views/EasyGame.fxml";
 			break;
 		case "normal":
-			boardPath = "../views/Normal.fxml";
+			gamePath = "../views/NormalGame.fxml";
 			break;
 		case "hard":
-			boardPath = "../views/Normal.fxml";
+			gamePath = "../views/Normal.fxml";
 			break;
 		default:
 			throw new IOException("Board not found");
 		}
-		ScrollPane board = (ScrollPane)loadView(boardPath);
-		game.getChildren().add(board);
+		HBox game = (HBox)loadView(gamePath);
 		SceneCtrl.primaryStage.setScene(new Scene(game));
 	}
 	
 	private static Parent loadView(String path) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(SceneCtrl.class.getResource(path));
+		System.out.println("caricato");
 		return(loader.load());
 	}
 }
