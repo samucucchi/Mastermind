@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import game.enumerators.Colors;
+
 public class Master {
 	private Game game;
 	private Colors[] seq;

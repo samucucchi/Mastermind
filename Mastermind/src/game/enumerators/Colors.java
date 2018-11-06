@@ -1,5 +1,5 @@
-package game;
+package game.enumerators;
 
 public enum Colors {
-	RED, BLUE, YELLOW, GREEN, ORANGE, VIOLET, WHITE, BLACK
+	RED, BLUE, GREEN, YELLOW, ORANGE, BROWN, VIOLET, BLACK
 }

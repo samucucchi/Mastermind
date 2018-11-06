@@ -2,6 +2,8 @@ package game;
 
 import player.*;
 import java.util.Scanner;
+
+import game.enumerators.Colors;
 import game.exception.ExceptionMain;
 
 public class Main {
