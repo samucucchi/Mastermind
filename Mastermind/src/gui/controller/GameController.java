@@ -3,7 +3,6 @@ package gui.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -11,7 +10,9 @@ import javafx.scene.shape.Circle;
 
 public class GameController {
 
-	final int RADIUS = 30;
+	final int RADIUS = 25;
+	final String BUTTON_STYLE = "-fx-background-radius: 35; -fx-background-color: ";
+	
 	@FXML private GridPane pins;
 	
 	@FXML private GridPane sequence;
@@ -20,10 +21,10 @@ public class GameController {
 	
 	@FXML
 	private void selectColor(ActionEvent event) {
-		String id = ((Button)event.getSource()).getId();
-		String color = null;
-		
-		System.out.println(id);
+		Button selected = (Button)event.getSource();
+		String color = getPinColor(selected);
+		disableButton(selected);
+		System.out.println(selected.getId());
 		for(int i = 0; i < sequence.getChildren().size(); i++) {
 			Circle pin = (Circle)sequence.getChildren().get(i);
 			if(pin.getFill() == Paint.valueOf("white")) {
@@ -39,15 +40,50 @@ public class GameController {
 			GridPane previousSequence = createPreviousSequence(sequence);
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
+			enableButtons();
 		}
 		else {
 			System.out.println("Completare la sequenza");
 		}
 	}
 	
-	private void disablePin(Button pin) {
-		pin.setStyle("-fx-background-color: white");
-		pin.setDisable(true);
+	private void disableButton(Button button) {
+		button.setStyle(BUTTON_STYLE + "white");
+		button.setDisable(true);
+	}
+	
+	private void enableButtons() {
+		for(int i = 0; i < pins.getChildren().size(); i++) {
+			Button pin = (Button)pins.getChildren().get(i);
+			if(pin.isDisabled()) {
+				String color = getPinColor(pin);
+				pin.setDisable(false);
+				pin.setStyle(BUTTON_STYLE + color);
+			}
+		}
+	}
+	
+	private String getPinColor(Button button) {
+		switch(button.getId()) {
+		case "redPin":
+			return "red";
+		case "bluePin":
+			return "blue";
+		case "greenPin":
+			return "green";
+		case "yellowPin":
+			return "yellow";
+		case "orangePin":
+			return "orange";
+		case "purplePin":
+			return "purple";
+		case "brownPin":
+			return "brown";
+		case "blackPin":
+			return "black";
+		default:
+			return null;
+		}
 	}
 	
 	private GridPane createPreviousSequence(GridPane sequence) {
