@@ -32,6 +32,10 @@ public class GameController {
 			Circle sequencePin = (Circle) sequence.getChildren().get(i);
 			if (sequencePin.getFill() == Paint.valueOf(WHITE_COLOR)) {
 				sequencePin.setFill(pinSelected.getFill());
+				disablePin(pinSelected);
+				if(i == SEQUENCE_NUMBER) {
+					disableAllPins();
+				}
 				break;
 			}
 		}
@@ -43,22 +47,21 @@ public class GameController {
 			GridPane previousSequence = createPreviousSequence(sequence);
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
-			enableButtons();
+			//enablePins();
 		}
 		else {
 			System.out.println("Completare la sequenza");
 		}
 	}
 	
-	private void disableButton(Button button) {
-		button.setStyle(BUTTON_STYLE + "white");
-		button.setDisable(true);
+	private void disablePin(Circle pin) {
+		pin.setFill(Paint.valueOf(WHITE_COLOR));
 	}
 	
 	private void disableAllPins() {
 		for(int i = 0; i < pins.getChildren().size(); i++) {
-			Button pin = (Button)pins.getChildren().get(i);
-			disableButton(pin);
+			Circle pin = (Circle)pins.getChildren().get(i);
+			disablePin(pin);
 		}
 	}
 	
@@ -66,9 +69,9 @@ public class GameController {
 		for(int i = 0; i < pins.getChildren().size(); i++) {
 			Button pin = (Button)pins.getChildren().get(i);
 			if(pin.isDisabled()) {
-				String color = getPinColor(pin);
+				//String color = getPinColor(pin);
 				pin.setDisable(false);
-				pin.setStyle(BUTTON_STYLE + color);
+				//pin.setStyle(BUTTON_STYLE + color);
 			}
 		}
 	}
