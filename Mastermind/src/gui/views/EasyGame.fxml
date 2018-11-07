@@ -27,14 +27,14 @@
                   <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="redPin" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 35; -fx-background-color: #ff0000;" text="   " textFill="RED" />
-                  <Button fx:id="bluePin" layoutX="31.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 35; -fx-background-color: #0066ff;" text="   " textFill="RED" GridPane.columnIndex="1" />
-                  <Button fx:id="blackPin" layoutX="31.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 35; -fx-background-color: #000000;" text="   " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Button fx:id="brownPin" layoutX="31.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 35; -fx-background-color: #993300;" text="   " textFill="RED" GridPane.rowIndex="3" />
-                  <Button fx:id="purplePin" layoutX="31.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 35; -fx-background-color: #cc0099;" text="   " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="orangePin" layoutX="31.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 35; -fx-background-color: #ff6600;" text="   " textFill="RED" GridPane.rowIndex="2" />
-                  <Button fx:id="yellowPin" layoutX="31.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 35; -fx-background-color: #ffff00;" text="   " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="greenPin" layoutX="31.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#selectColor" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 40; -fx-background-color: #00cc00;" text="   " textFill="RED" GridPane.rowIndex="1" />
+                  <Circle fill="BLUE" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" />
+                  <Circle layoutX="73.0" layoutY="30.0" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Circle fill="BROWN" layoutX="73.0" layoutY="30.0" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="3" />
+                  <Circle fill="PURPLE" layoutX="73.0" layoutY="30.0" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Circle fill="ORANGE" layoutX="73.0" layoutY="30.0" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="2" />
+                  <Circle fill="YELLOW" layoutX="73.0" layoutY="30.0" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Circle fill="GREEN" layoutX="73.0" layoutY="30.0" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
+                  <Circle fill="RED" layoutX="73.0" layoutY="30.0" onMouseClicked="#selectColor" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
                <VBox.margin>
                   <Insets top="40.0" />
@@ -54,10 +54,10 @@
                   <Insets top="80.0" />
                </VBox.margin>
                <children>
-                  <Circle fill="WHITE" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" />
-                  <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" />
-                  <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" />
+                  <Circle fill="WHITE" onMouseClicked="#cerchio" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="WHITE" layoutX="42.0" layoutY="42.0" onMouseClicked="#cerchio" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" />
+                  <Circle fill="WHITE" layoutX="42.0" layoutY="42.0" onMouseClicked="#cerchio" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" />
+                  <Circle fill="WHITE" layoutX="42.0" layoutY="42.0" onMouseClicked="#cerchio" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" />
                </children>
             </GridPane>
             <Button maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#checkSequence" prefHeight="50.0" prefWidth="250.0" text="Check">

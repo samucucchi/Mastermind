@@ -3,6 +3,7 @@ package gui.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -10,8 +11,12 @@ import javafx.scene.shape.Circle;
 
 public class GameController {
 
-	final int RADIUS = 25;
-	final String BUTTON_STYLE = "-fx-background-radius: 35; -fx-background-color: ";
+	private final int RADIUS = 25;
+	private final String BUTTON_STYLE = "-fx-background-radius: 35; -fx-background-color: ";
+	
+	private final String WHITE_COLOR = "white";
+	
+	private final int SEQUENCE_NUMBER = 3;
 	
 	@FXML private GridPane pins;
 	
@@ -20,15 +25,13 @@ public class GameController {
 	@FXML private VBox previousSequences;
 	
 	@FXML
-	private void selectColor(ActionEvent event) {
-		Button selected = (Button)event.getSource();
-		String color = getPinColor(selected);
-		disableButton(selected);
-		System.out.println(selected.getId());
-		for(int i = 0; i < sequence.getChildren().size(); i++) {
-			Circle pin = (Circle)sequence.getChildren().get(i);
-			if(pin.getFill() == Paint.valueOf("white")) {
-				pin.setFill(Paint.valueOf(color));
+	private void selectColor(MouseEvent event) {
+		Circle pinSelected = (Circle)event.getSource();
+		//disablePin(pinSelected);
+		for (int i = 0; i < sequence.getChildren().size(); i++) {
+			Circle sequencePin = (Circle) sequence.getChildren().get(i);
+			if (sequencePin.getFill() == Paint.valueOf(WHITE_COLOR)) {
+				sequencePin.setFill(pinSelected.getFill());
 				break;
 			}
 		}
@@ -52,6 +55,13 @@ public class GameController {
 		button.setDisable(true);
 	}
 	
+	private void disableAllPins() {
+		for(int i = 0; i < pins.getChildren().size(); i++) {
+			Button pin = (Button)pins.getChildren().get(i);
+			disableButton(pin);
+		}
+	}
+	
 	private void enableButtons() {
 		for(int i = 0; i < pins.getChildren().size(); i++) {
 			Button pin = (Button)pins.getChildren().get(i);
@@ -60,29 +70,6 @@ public class GameController {
 				pin.setDisable(false);
 				pin.setStyle(BUTTON_STYLE + color);
 			}
-		}
-	}
-	
-	private String getPinColor(Button button) {
-		switch(button.getId()) {
-		case "redPin":
-			return "red";
-		case "bluePin":
-			return "blue";
-		case "greenPin":
-			return "green";
-		case "yellowPin":
-			return "yellow";
-		case "orangePin":
-			return "orange";
-		case "purplePin":
-			return "purple";
-		case "brownPin":
-			return "brown";
-		case "blackPin":
-			return "black";
-		default:
-			return null;
 		}
 	}
 	
@@ -117,5 +104,10 @@ public class GameController {
 			}
 		}
 		return true;
+	}
+	
+	@FXML
+	private void cerchio() {
+		System.out.println("diocane");
 	}
 }
