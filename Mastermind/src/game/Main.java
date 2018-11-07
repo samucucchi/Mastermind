@@ -2,8 +2,9 @@ package game;
 
 import player.*;
 import java.util.Scanner;
-
 import game.exception.ExceptionMain;
+
+import gui.controller.DifficultyCtrl;
 
 public class Main {
 	static Scanner sc = new Scanner(System.in);
