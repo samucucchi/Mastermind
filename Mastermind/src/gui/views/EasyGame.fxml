@@ -57,9 +57,9 @@
                </VBox.margin>
                <children>
                   <Circle fill="WHITE" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" />
-                  <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" />
                   <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" />
+                  <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" />
+                  <Circle fill="WHITE" layoutX="40.0" layoutY="42.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" />
                </children>
             </GridPane>
             <Button maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="Check">
