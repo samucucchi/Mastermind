@@ -12,14 +12,7 @@ import javafx.scene.shape.Circle;
 public class GameController {
 
 	final int RADIUS = 30;
-	@FXML private Button redPin;
-	@FXML private Button bluePin;
-	@FXML private Button greenPin;
-	@FXML private Button yellowPin;
-	@FXML private Button orangePin;
-	@FXML private Button purplePin;
-	@FXML private Button brownPin;
-	@FXML private Button blackPin;
+	@FXML private GridPane pins;
 	
 	@FXML private GridPane sequence;
 	
@@ -29,43 +22,7 @@ public class GameController {
 	private void selectColor(ActionEvent event) {
 		String id = ((Button)event.getSource()).getId();
 		String color = null;
-		switch(id) {
-		case "redPin":
-			color = "red";
-			disablePin(redPin);
-			break;
-		case "bluePin":
-			color = "blue";
-			disablePin(bluePin);
-			break;
-		case "greenPin":
-			color = "green";
-			disablePin(greenPin);
-			break;
-		case "yellowPin":
-			color = "yellow";
-			disablePin(yellowPin);
-			break;
-		case "orangePin":
-			color = "orange";
-			disablePin(orangePin);
-			break;
-		case "purplePin":
-			color = "purple";
-			disablePin(purplePin);
-			break;
-		case "brownPin":
-			color = "brown";
-			disablePin(brownPin);
-			break;
-		case "blackPin":
-			color = "black";
-			disablePin(blackPin);
-			break;
-		default:
-			System.out.println("Color not recognized");
-			break;
-		}
+		
 		System.out.println(id);
 		for(int i = 0; i < sequence.getChildren().size(); i++) {
 			Circle pin = (Circle)sequence.getChildren().get(i);
@@ -78,16 +35,14 @@ public class GameController {
 	
 	@FXML
 	private void checkSequence() {
-		for(int i = 0; i < sequence.getChildren().size(); i++) {
-			Circle pin = (Circle)sequence.getChildren().get(i);
-			if(pin.getFill() == Paint.valueOf("white")) {
-				System.out.println("Completare la sequenza");
-				return;
-			}
+		if(isSequenceCompleted(sequence)) {
+			GridPane previousSequence = createPreviousSequence(sequence);
+			previousSequences.getChildren().add(previousSequence);
+			clearSequence(sequence);
 		}
-		GridPane previousSequence = createPreviousSequence(sequence);
-		previousSequences.getChildren().add(previousSequence);
-		clearSequence(sequence);
+		else {
+			System.out.println("Completare la sequenza");
+		}
 	}
 	
 	private void disablePin(Button pin) {
@@ -116,5 +71,15 @@ public class GameController {
 			Circle pin = ((Circle)sequence.getChildren().get(i));
 			pin.setFill(whiteColor);
 		}
+	}
+	
+	private boolean isSequenceCompleted(GridPane sequence) {
+		for(int i = 0; i < sequence.getChildren().size(); i++) {
+			Circle pin = (Circle)sequence.getChildren().get(i);
+			if(pin.getFill() == Paint.valueOf("white")) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
