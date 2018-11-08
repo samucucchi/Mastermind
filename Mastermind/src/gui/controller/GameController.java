@@ -1,5 +1,6 @@
 package gui.controller;
 
+import gui.elements.ColoredPin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,17 +13,35 @@ import javafx.scene.shape.Circle;
 public class GameController {
 
 	private final int RADIUS = 25;
-	private final String BUTTON_STYLE = "-fx-background-radius: 35; -fx-background-color: ";
 	
 	private final String WHITE_COLOR = "white";
 	
 	private final int SEQUENCE_NUMBER = 3;
 	
+	private final int COLOR_NUMBER = 8;
+	
+	private String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
 	@FXML private GridPane pins;
 	
 	@FXML private GridPane sequence;
 	
 	@FXML private VBox previousSequences;
+	
+	@FXML
+	private void initialize() {
+		System.out.println("ciao");
+		for(int i = 0; i < COLOR_NUMBER / 2; i++) {
+			for(int j = 0; j < COLOR_NUMBER / 4; j++) {
+				//creazione cerchio
+				ColoredPin pin = new ColoredPin(RADIUS, pinColors[i][j]);
+				pin.getCircle().setStroke(Paint.valueOf("black"));
+				pin.getCircle().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+					selectColor(event);
+				});
+				pins.add(pin.getCircle(), j, i);
+			}
+		}
+	}
 	
 	@FXML
 	private void selectColor(MouseEvent event) {
@@ -52,6 +71,12 @@ public class GameController {
 		else {
 			System.out.println("Completare la sequenza");
 		}
+	}
+	
+	@FXML
+	private void removeColor(MouseEvent event) {
+		Circle pinToRemove = (Circle)event.getSource();
+		disablePin(pinToRemove);
 	}
 	
 	private void disablePin(Circle pin) {
@@ -109,8 +134,4 @@ public class GameController {
 		return true;
 	}
 	
-	@FXML
-	private void cerchio() {
-		System.out.println("diocane");
-	}
 }
