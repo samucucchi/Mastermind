@@ -8,12 +8,6 @@ import java.util.Random;
 import game.enumerators.Colors;
 import game.enumerators.Difficulty;
 
-/*
- * create (difficulty)
- * checkInput(): controlla la correttezza della sequenza inserita in input
- * createSequence(difficulty): genera la sequenza da indovinare
- */
-
 public class Master {
 	private Game game;
 	private final Difficulty difficulty;
@@ -21,7 +15,6 @@ public class Master {
 	public Master(Game game, Difficulty difficulty) {
 		this.game = game;
 		this.difficulty = difficulty;
-		// difficoltà
 		// GUI
 	}
 
@@ -40,7 +33,6 @@ public class Master {
 	}
 
 	/**
-	 * 
 	 * @param ins : array containing the values inserted by the decoder
 	 * @return how much values have been guessed in right position
 	 */
@@ -63,6 +55,7 @@ public class Master {
 	 * @return the sequence generated, basing on the difficulty selected before
 	 */
 	public Colors[] generateSequence() {
+		//TODO exception if difficulty has not been set
 		if(difficulty == Difficulty.EASY) {
 			//generates sequence with no repetitions 
 			return generateEasySequence();
