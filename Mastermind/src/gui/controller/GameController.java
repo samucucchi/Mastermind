@@ -33,12 +33,13 @@ public class GameController {
 		for(int i = 0; i < COLOR_NUMBER / 2; i++) {
 			for(int j = 0; j < COLOR_NUMBER / 4; j++) {
 				//creazione cerchio
-				ColoredPin pin = new ColoredPin(RADIUS, pinColors[i][j]);
-				pin.getCircle().setStroke(Paint.valueOf("black"));
-				pin.getCircle().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+				Circle pin = new Circle(RADIUS, Paint.valueOf(pinColors[i][j]));
+				pin.setStroke(Paint.valueOf("black"));
+				pin.getProperties().put("defaultColor", pin.getFill());
+				pin.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 					selectColor(event);
 				});
-				pins.add(pin.getCircle(), j, i);
+				pins.add(pin, j, i);
 			}
 		}
 	}
@@ -52,9 +53,6 @@ public class GameController {
 			if (sequencePin.getFill() == Paint.valueOf(WHITE_COLOR)) {
 				sequencePin.setFill(pinSelected.getFill());
 				disablePin(pinSelected);
-				if(i == SEQUENCE_NUMBER) {
-					disableAllPins();
-				}
 				break;
 			}
 		}
@@ -66,7 +64,7 @@ public class GameController {
 			GridPane previousSequence = createPreviousSequence(sequence);
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
-			//enablePins();
+			enableAllPins();
 		}
 		else {
 			System.out.println("Completare la sequenza");
@@ -76,7 +74,9 @@ public class GameController {
 	@FXML
 	private void removeColor(MouseEvent event) {
 		Circle pinToRemove = (Circle)event.getSource();
+		Paint color = pinToRemove.getFill();
 		disablePin(pinToRemove);
+		enablePin(color);
 	}
 	
 	private void disablePin(Circle pin) {
@@ -90,14 +90,21 @@ public class GameController {
 		}
 	}
 	
-	private void enableButtons() {
+	private void enablePin(Paint color) {
 		for(int i = 0; i < pins.getChildren().size(); i++) {
-			Button pin = (Button)pins.getChildren().get(i);
-			if(pin.isDisabled()) {
-				//String color = getPinColor(pin);
-				pin.setDisable(false);
-				//pin.setStyle(BUTTON_STYLE + color);
+			Circle currentCircle = (Circle)pins.getChildren().get(i);
+			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
+			if(color == defaultColor) {
+				currentCircle.setFill(color);
 			}
+		}
+	}
+	
+	private void enableAllPins() {
+		for(int i = 0; i < pins.getChildren().size(); i++) {
+			Circle currentCircle = (Circle)pins.getChildren().get(i);
+			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
+			currentCircle.setFill(defaultColor);
 		}
 	}
 	
