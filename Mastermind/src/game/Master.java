@@ -1,24 +1,30 @@
 //TODO remove static from all methods
 package game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
 import game.enumerators.Colors;
+import game.enumerators.Difficulty;
+
+/*
+ * create (difficulty)
+ * checkInput(): controlla la correttezza della sequenza inserita in input
+ * createSequence(difficulty): genera la sequenza da indovinare
+ */
 
 public class Master {
 	private Game game;
-	private Colors[] seq;
+	private final Difficulty difficulty;
 
-	public Master(Game game, int seqLength) {
+	public Master(Game game, Difficulty difficulty) {
 		this.game = game;
-		this.seq = generateSequence(seqLength);
-		//difficoltà
-		//GUI
+		this.difficulty = difficulty;
+		// difficoltà
+		// GUI
 	}
-	
+
 	/**
 	 * @param ins : array containing the values inserted by the decoder
 	 * @return how much values have been guessed in right position
@@ -26,7 +32,7 @@ public class Master {
 	public int getRightPosition(Colors[] ins) {
 		int counter = 0;
 		for (int i = 0; i < ins.length; i++) {
-			if (ins[i] == seq[i]) {
+			if (true/*check sequence taking it from Game*/) {
 				counter++;
 			}
 		}
@@ -42,7 +48,7 @@ public class Master {
 		int counter = 0;
 		for (int i = 0; i < ins.length; i++) {
 			for (int c = 0; c < ins.length; c++) {
-				if (ins[i] == seq[c] && i != c) {
+				if (true /*ins[i] == seq[c] && i != c*/) {
 					counter++;
 					if (counter == ins.length) { // if ins.lenght have been guessed, is useless to continue to search
 						break;
@@ -54,25 +60,52 @@ public class Master {
 	}
 
 	/**
-	 * Generates a sequence of Colors, without repetitions
-	 * 
-	 * @param length : size of sequence to guess
-	 * @return generated sequence
+	 * @return the sequence generated, basing on the difficulty selected before
 	 */
-	private Colors[] generateSequence(int length) {
-		Colors[] generated = new Colors[length];
-		List<Colors> left = new LinkedList<Colors>(Arrays.asList(Colors.values()));
+	public Colors[] generateSequence() {
+		if(difficulty == Difficulty.EASY) {
+			//generates sequence with no repetitions 
+			return generateEasySequence();
+		} else { 
+			//difficulty is medium or hard, generates sequence with repetitions 
+			return generateHardSequence();
+		}
+	}
+	
+	/**
+	 * Generates a sequence of medium or hard difficulty
+	 * @return the sequence generated
+	 */
+	private Colors[] generateHardSequence() {
+		//TODO test
+		Colors[] colors = new Colors[difficulty.getLength()];
+		for(int i = 0; i < difficulty.getLength(); i++) {
+			//takes randomly an element (with repetitions) from the values into Colors
+			colors[i] = Colors.values()[new Random().nextInt(difficulty.getLength())];
+		}
+		return colors; 
+	}
 
-		for (int i = 0; i < length; i++)
-			generated[i] = left.remove(new Random().nextInt(left.size()));
-		return generated;
+	/**
+	 * Generates a sequence of easy difficulty
+	 * @return the sequence generated
+	 */
+	private Colors[] generateEasySequence() {
+		//TODO: test
+		Colors[] colors = new Colors[difficulty.getLength()];
+		List<Colors> notInserted = new ArrayList<Colors>(Arrays.asList(Colors.values()));
+		for(int i = 0; i < difficulty.getLength(); i++) {
+			//insert into colors the remaining not inserted elements into notInserted
+			colors[i] = notInserted.remove(new Random().nextInt(notInserted.size()));
+		}
+		return colors;
 	}
 
 	public Game getGame() {
 		return game;
 	}
 
-	public int getSeqLength() {
-		return seq.length;
+	public Difficulty getDifficulty() {
+		return difficulty;
 	}
 }
