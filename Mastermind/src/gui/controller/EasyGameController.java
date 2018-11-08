@@ -36,17 +36,7 @@ public class EasyGameController extends GameController{
 		}
 	}
 	
-	@FXML
-	private void removeColor(MouseEvent event) {
-		Circle pinToRemove = (Circle)event.getSource();
-		Paint color = pinToRemove.getFill();
-		disablePin(pinToRemove);
-		enablePin(color);
-	}
 	
-	private void disablePin(Circle pin) {
-		pin.setFill(Paint.valueOf(WHITE_COLOR));
-	}
 	
 	private void disableAllPins() {
 		for(int i = 0; i < pins.getChildren().size(); i++) {

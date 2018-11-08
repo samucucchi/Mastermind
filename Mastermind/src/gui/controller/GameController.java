@@ -1,8 +1,6 @@
 package gui.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -15,16 +13,13 @@ public abstract class GameController {
 	
 	protected final String WHITE_COLOR = "white";
 	
-	protected final int SEQUENCE_NUMBER = 3;
-	
 	protected final int COLOR_NUMBER = 8;
 	
 	protected String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
 	
 	@FXML protected GridPane pins;
 	
-	@FXML
-	protected GridPane sequence;
+	@FXML protected GridPane sequence;
 	
 	@FXML protected VBox previousSequences;
 	
@@ -70,6 +65,18 @@ public abstract class GameController {
 		else {
 			System.out.println("Completare la sequenza");
 		}
+	}
+	
+
+	@FXML
+	protected void removeColor(MouseEvent event) {
+		Circle pinToRemove = (Circle)event.getSource();
+		Paint color = pinToRemove.getFill();
+		disablePin(pinToRemove);
+	}
+	
+	protected void disablePin(Circle pin) {
+		pin.setFill(Paint.valueOf(WHITE_COLOR));
 	}
 	
 	protected GridPane createPreviousSequence(GridPane sequence) {
