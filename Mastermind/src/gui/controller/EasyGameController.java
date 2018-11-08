@@ -36,23 +36,12 @@ public class EasyGameController extends GameController{
 		}
 	}
 	
-	
-	
-	private void disableAllPins() {
-		for(int i = 0; i < pins.getChildren().size(); i++) {
-			Circle pin = (Circle)pins.getChildren().get(i);
-			disablePin(pin);
-		}
-	}
-	
-	private void enablePin(Paint color) {
-		for(int i = 0; i < pins.getChildren().size(); i++) {
-			Circle currentCircle = (Circle)pins.getChildren().get(i);
-			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
-			if(color == defaultColor) {
-				currentCircle.setFill(color);
-			}
-		}
+	@FXML
+	protected void removeColor(MouseEvent event) {
+		Circle pinToRemove = (Circle)event.getSource();
+		Paint color = pinToRemove.getFill();
+		disablePin(pinToRemove);
+		enablePin(color);
 	}
 	
 	private void enableAllPins() {

@@ -73,6 +73,18 @@ public abstract class GameController {
 		Circle pinToRemove = (Circle)event.getSource();
 		Paint color = pinToRemove.getFill();
 		disablePin(pinToRemove);
+		//enablePin(color);
+	}
+	
+
+	protected void enablePin(Paint color) {
+		for(int i = 0; i < pins.getChildren().size(); i++) {
+			Circle currentCircle = (Circle)pins.getChildren().get(i);
+			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
+			if(color == defaultColor) {
+				currentCircle.setFill(color);
+			}
+		}
 	}
 	
 	protected void disablePin(Circle pin) {
