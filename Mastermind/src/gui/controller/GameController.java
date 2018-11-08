@@ -1,6 +1,5 @@
 package gui.controller;
 
-import gui.elements.ColoredPin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +20,7 @@ public class GameController {
 	private final int COLOR_NUMBER = 8;
 	
 	private String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
+	
 	@FXML private GridPane pins;
 	
 	@FXML private GridPane sequence;
@@ -62,6 +62,7 @@ public class GameController {
 	private void checkSequence() {
 		if(isSequenceCompleted(sequence)) {
 			GridPane previousSequence = createPreviousSequence(sequence);
+			previousSequence.setHgap(5);
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
 			enableAllPins();
@@ -120,6 +121,7 @@ public class GameController {
 	
 	private Circle createSequenceCircle(Paint color) {
 		Circle circle = new Circle(RADIUS, color);
+		circle.setStroke(Paint.valueOf("black"));
 		return circle;
 	}
 	
