@@ -1,5 +1,7 @@
 package gui.controller;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -9,7 +11,9 @@ import javafx.scene.shape.Circle;
 
 public abstract class GameController {
 
-	protected final int RADIUS = 25;
+	protected final int INPUT_PIN_RADIUS = 25;
+	
+	protected int RADIUS;
 	
 	protected final String WHITE_COLOR = "white";
 	
@@ -28,7 +32,7 @@ public abstract class GameController {
 		for(int i = 0; i < COLOR_NUMBER / 2; i++) {
 			for(int j = 0; j < COLOR_NUMBER / 4; j++) {
 				//creazione cerchio
-				Circle pin = new Circle(RADIUS, Paint.valueOf(pinColors[i][j]));
+				Circle pin = new Circle(INPUT_PIN_RADIUS, Paint.valueOf(pinColors[i][j]));
 				pin.setStroke(Paint.valueOf("black"));
 				pin.getProperties().put("defaultColor", pin.getFill());
 				pin.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -71,12 +75,17 @@ public abstract class GameController {
 	@FXML
 	protected void removeColor(MouseEvent event) {
 		Circle pinToRemove = (Circle)event.getSource();
-		Paint color = pinToRemove.getFill();
+		//Paint color = pinToRemove.getFill();
 		disablePin(pinToRemove);
 		//enablePin(color);
 	}
 	
 
+	@FXML
+	protected void giveUp() throws IOException {
+		SceneCtrl.showMainMenu();
+	}
+	
 	protected void enablePin(Paint color) {
 		for(int i = 0; i < pins.getChildren().size(); i++) {
 			Circle currentCircle = (Circle)pins.getChildren().get(i);

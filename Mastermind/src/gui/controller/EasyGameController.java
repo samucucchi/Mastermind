@@ -8,6 +8,11 @@ import javafx.scene.shape.Circle;
 
 public class EasyGameController extends GameController{
 
+	final int RADIUS = 25;
+	
+	public EasyGameController() {
+		super.RADIUS = this.RADIUS;
+	}
 	@FXML
 	protected void selectColor(MouseEvent event) {
 		Circle pinSelected = (Circle)event.getSource();
