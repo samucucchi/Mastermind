@@ -45,17 +45,11 @@ public abstract class GameController {
 	/*intitializes and draws input pins*/
 	@FXML
 	protected void initialize() {
-<<<<<<< HEAD
-		for(int i = 0; i < COLORS_NUMBER / PINS_COLUMNS; i++) {
-			for(int j = 0; j < COLORS_NUMBER / (COLORS_NUMBER / PINS_COLUMNS); j++) {
-				//creazione cerchio
-				Circle pin = new Circle(RADIUS, Paint.valueOf(pinColors[i][j]));
-=======
+
 		for(int i = 0; i < INPUT_PINS_ROWS; i++) {
 			for(int j = 0; j < INPUT_PINS_COLUMNS; j++) {
 				/*takes color from pinColors*/
 				Circle pin = new Circle(INPUT_PIN_RADIUS, Paint.valueOf(pinColors[i][j]));
->>>>>>> branch 'Gui' of https://github.com/samucucchi/Mastermind.git
 				pin.setStroke(Paint.valueOf("black"));
 				/*adds "defaultColor" property, so color can be restored*/
 				pin.getProperties().put("defaultColor", pin.getFill());
