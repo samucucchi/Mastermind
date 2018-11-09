@@ -16,12 +16,14 @@ public class SceneCtrl {
 	
 	public static void start(Stage primaryStage) throws Exception {
 		SceneCtrl.primaryStage = primaryStage;
-		//carico il main menu
-		BorderPane mainMenu = (BorderPane)loadView("../views/MainMenu.fxml");
-		SceneCtrl.currentScene = new Scene(mainMenu);
-		SceneCtrl.primaryStage.setScene(currentScene);
+		showMainMenu();
 		SceneCtrl.primaryStage.setTitle("MasterMind");
 		SceneCtrl.primaryStage.show();
+	}
+	
+	public static void showMainMenu() throws IOException {
+		BorderPane mainMenu = (BorderPane)loadView("../views/MainMenu.fxml");
+		SceneCtrl.primaryStage.setScene(new Scene(mainMenu));
 	}
 	
 	public static void showDifficultyMenu() throws IOException {
@@ -39,7 +41,7 @@ public class SceneCtrl {
 			gamePath = "../views/NormalGame.fxml";
 			break;
 		case "hard":
-			gamePath = "../views/Normal.fxml";
+			gamePath = "../views/HardGame.fxml";
 			break;
 		default:
 			throw new IOException("Board not found");

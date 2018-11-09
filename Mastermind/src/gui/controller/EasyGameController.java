@@ -8,6 +8,11 @@ import javafx.scene.shape.Circle;
 
 public class EasyGameController extends GameController{
 
+	final int RADIUS = 25;
+	
+	public EasyGameController() {
+		super.RADIUS = this.RADIUS;
+	}
 	@FXML
 	protected void selectColor(MouseEvent event) {
 		Circle pinSelected = (Circle)event.getSource();
@@ -45,8 +50,8 @@ public class EasyGameController extends GameController{
 	}
 	
 	private void enableAllPins() {
-		for(int i = 0; i < pins.getChildren().size(); i++) {
-			Circle currentCircle = (Circle)pins.getChildren().get(i);
+		for(int i = 0; i < inputPins.getChildren().size(); i++) {
+			Circle currentCircle = (Circle)inputPins.getChildren().get(i);
 			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
 			currentCircle.setFill(defaultColor);
 		}
