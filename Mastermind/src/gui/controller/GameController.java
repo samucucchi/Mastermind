@@ -14,60 +14,80 @@ import javafx.scene.shape.Circle;
 
 public abstract class GameController {
 
+	/*input pin radius is fixed*/
 	protected final int INPUT_PIN_RADIUS = 25;
 	
+	/*a type of game could have a different radius for its circles*/
 	protected int RADIUS;
 	
 	protected final String WHITE_COLOR = "white";
 	
 	protected final int COLOR_NUMBER = 8;
 	
+	protected final int INPUT_PINS_COLUMNS = 2;
+	
+	protected final int INPUT_PINS_ROWS = 4;
+	
+	/*matrix representing colors to be displayed in input pins*/
 	protected String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
 	
-	@FXML protected GridPane pins;
+	/*clickable pins*/
+	@FXML protected GridPane inputPins;
 	
+	/*sequence under pins*/
 	@FXML protected GridPane sequence;
 	
+	/*right half of the screen*/
 	@FXML protected VBox previousSequences;
 	
+	/*intitializes and draws input pins*/
 	@FXML
 	protected void initialize() {
-		for(int i = 0; i < COLOR_NUMBER / 2; i++) {
-			for(int j = 0; j < COLOR_NUMBER / 4; j++) {
-				//creazione cerchio
+		for(int i = 0; i < INPUT_PINS_ROWS; i++) {
+			for(int j = 0; j < INPUT_PINS_COLUMNS; j++) {
+				/*takes color from pinColors*/
 				Circle pin = new Circle(INPUT_PIN_RADIUS, Paint.valueOf(pinColors[i][j]));
 				pin.setStroke(Paint.valueOf("black"));
+				/*adds "defaultColor" property, so color can be restored*/
 				pin.getProperties().put("defaultColor", pin.getFill());
+				/*associates the method when the user clicks a pin*/
 				pin.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 					selectColor(event);
 				});
-				pins.add(pin, j, i);
+				/*adds the circle in the grid*/
+				inputPins.add(pin, j, i);
 			}
 		}
 	}
 	
+	/*user clicks a pin:
+	 * the color chosen is inserted into the sequence*/
 	@FXML
 	protected void selectColor(MouseEvent event) {
+		/*gets the origin circle*/
 		Circle pinSelected = (Circle)event.getSource();
-		//disablePin(pinSelected);
+		/*inserts the selected color in the first white sequence slot*/
 		for (int i = 0; i < sequence.getChildren().size(); i++) {
-			Circle sequencePin = (Circle) sequence.getChildren().get(i);
-			if (sequencePin.getFill() == Paint.valueOf(WHITE_COLOR)) {
-				sequencePin.setFill(pinSelected.getFill());
-				//disablePin(pinSelected);
+			Circle sequenceSlot = (Circle) sequence.getChildren().get(i);
+			if (sequenceSlot.getFill() == Paint.valueOf(WHITE_COLOR)) {
+				sequenceSlot.setFill(pinSelected.getFill());
 				break;
 			}
 		}
 	}
 	
+	/*user hits the check button:
+	 *prints the sequence and the int grid in the previousSequences container*/
 	@FXML
 	protected void checkSequence() {
 		if(isSequenceCompleted(sequence)) {
+			/*gets a copy of the sequence*/
 			GridPane previousSequence = createPreviousSequence(sequence);
 			previousSequence.setHgap(5);
+			/*adds the sequence into the container*/
 			previousSequences.getChildren().add(previousSequence);
+			/*clears the current sequence*/
 			clearSequence(sequence);
-			//enableAllPins();
 		}
 		else {
 			System.out.println("Completare la sequenza");
@@ -90,8 +110,8 @@ public abstract class GameController {
 	}
 	
 	protected void enablePin(Paint color) {
-		for(int i = 0; i < pins.getChildren().size(); i++) {
-			Circle currentCircle = (Circle)pins.getChildren().get(i);
+		for(int i = 0; i < inputPins.getChildren().size(); i++) {
+			Circle currentCircle = (Circle)inputPins.getChildren().get(i);
 			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
 			if(color == defaultColor) {
 				currentCircle.setFill(color);
