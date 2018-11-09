@@ -4,7 +4,10 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -107,6 +110,7 @@ public abstract class GameController {
 			Circle previousPin = createSequenceCircle(pinColor);
 			previousSequence.add(previousPin, i, 0);
 		}
+		previousSequence.add(createIntPane(), sequence.getChildren().size() + 1, 0);
 		return previousSequence;
 	}
 	
@@ -114,6 +118,24 @@ public abstract class GameController {
 		Circle circle = new Circle(RADIUS, color);
 		circle.setStroke(Paint.valueOf("black"));
 		return circle;
+	}
+	
+	private GridPane createIntPane() {
+		GridPane intPane = new GridPane();
+		for(int i = 0; i < 2; i++) {
+			ColumnConstraints column = new ColumnConstraints(RADIUS);
+			RowConstraints row = new RowConstraints(RADIUS);
+			intPane.getColumnConstraints().add(column);
+			intPane.getRowConstraints().add(row);
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				Pane pane = new Pane();
+				pane.setStyle("-fx-border-color: black");
+				intPane.add(pane, i, j);
+			}
+		}
+		return intPane;
 	}
 	
 	protected void clearSequence(GridPane sequence) {
