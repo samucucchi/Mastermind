@@ -36,7 +36,7 @@
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="62.5" minWidth="62.5" prefWidth="62.5" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="62.5" minWidth="62.5" prefWidth="62.5" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="62.5" minWidth="62.5" prefWidth="62.5" />
-              </columnConstraints>
+              </columnConstraints> 
               <rowConstraints>
                   <RowConstraints maxHeight="62.5" minHeight="62.5" prefHeight="62.5" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>

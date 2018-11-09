@@ -13,7 +13,9 @@ public abstract class GameController {
 	
 	protected final String WHITE_COLOR = "white";
 	
-	protected final int COLOR_NUMBER = 8;
+	protected final int COLORS_NUMBER = 8;
+	
+	protected final int PINS_COLUMNS = 2;
 	
 	protected String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
 	
@@ -25,8 +27,8 @@ public abstract class GameController {
 	
 	@FXML
 	protected void initialize() {
-		for(int i = 0; i < COLOR_NUMBER / 2; i++) {
-			for(int j = 0; j < COLOR_NUMBER / 4; j++) {
+		for(int i = 0; i < COLORS_NUMBER / PINS_COLUMNS; i++) {
+			for(int j = 0; j < COLORS_NUMBER / (COLORS_NUMBER / PINS_COLUMNS); j++) {
 				//creazione cerchio
 				Circle pin = new Circle(RADIUS, Paint.valueOf(pinColors[i][j]));
 				pin.setStroke(Paint.valueOf("black"));
