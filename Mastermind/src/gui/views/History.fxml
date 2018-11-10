@@ -26,7 +26,7 @@
                   <Insets left="92.5" />
                </VBox.margin>
                <image>
-                  <Image url="@../../images/BrainLogo.jpg" />
+                  <Image url="@../../images/MMLogo.jpg" />
                </image>
             </ImageView>
             <HBox prefWidth="200.0" spacing="10.0">
