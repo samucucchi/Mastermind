@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class SceneCtrl {
@@ -46,7 +47,7 @@ public class SceneCtrl {
 		default:
 			throw new IOException("Board not found");
 		}
-		HBox game = (HBox)loadView(gamePath);
+		StackPane game = (StackPane)loadView(gamePath);
 		SceneCtrl.primaryStage.setScene(new Scene(game));
 	}
 	

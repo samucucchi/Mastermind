@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HardGameController">
    <left>
       <VBox maxHeight="900.0" maxWidth="250.0" minHeight="900.0" minWidth="250.0" prefHeight="900.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
