@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -148,9 +149,10 @@ public abstract class GameController {
 		GridPane hintPane = createGrid(HINTPANE_ROW_NUMBER, hintPane_column_number);
 		for (int i = 0; i < HINTPANE_ROW_NUMBER; i++) {
 			for (int j = 0; j < hintPane_column_number; j++) {
-				Pane pane = new Pane();
-				pane.setStyle("-fx-border-color: black");
-				hintPane.add(pane, j, i);
+				BorderPane cell = new BorderPane();
+				cell.setStyle("-fx-border-color: black");
+				cell.setCenter(new Circle(RADIUS/2, Paint.valueOf("black")));
+				hintPane.add(cell, j, i);
 			}
 		}
 		return hintPane;
