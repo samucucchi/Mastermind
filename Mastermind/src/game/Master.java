@@ -7,15 +7,13 @@ import java.util.List;
 import java.util.Random;
 import game.enumerators.Colors;
 import game.enumerators.Difficulty;
+import player.Player;
 
 public class Master {
 	private Game game;
-	private final Difficulty difficulty;
 
-	public Master(Game game, Difficulty difficulty) {
-		this.game = game;
-		this.difficulty = difficulty;
-		// GUI
+	public Master(Difficulty difficulty, Player player) {
+		this.game = new Game(player, difficulty, generateSequence(difficulty));
 	}
 
 	/**
@@ -54,14 +52,14 @@ public class Master {
 	/**
 	 * @return the sequence generated, basing on the difficulty selected before
 	 */
-	public Colors[] generateSequence() {
+	public Colors[] generateSequence(Difficulty difficulty) {
 		//TODO exception if difficulty has not been set
 		if(difficulty == Difficulty.EASY) {
 			//generates sequence with no repetitions 
-			return generateEasySequence();
+			return generateEasySequence(difficulty);
 		} else { 
 			//difficulty is medium or hard, generates sequence with repetitions 
-			return generateHardSequence();
+			return generateHardSequence(difficulty);
 		}
 	}
 	
@@ -69,7 +67,7 @@ public class Master {
 	 * Generates a sequence of medium or hard difficulty
 	 * @return the sequence generated
 	 */
-	private Colors[] generateHardSequence() {
+	private Colors[] generateHardSequence(Difficulty difficulty) {
 		//TODO test
 		Colors[] colors = new Colors[difficulty.getLength()];
 		for(int i = 0; i < difficulty.getLength(); i++) {
@@ -83,7 +81,7 @@ public class Master {
 	 * Generates a sequence of easy difficulty
 	 * @return the sequence generated
 	 */
-	private Colors[] generateEasySequence() {
+	private Colors[] generateEasySequence(Difficulty difficulty) {
 		//TODO: test
 		Colors[] colors = new Colors[difficulty.getLength()];
 		List<Colors> notInserted = new ArrayList<Colors>(Arrays.asList(Colors.values()));
@@ -96,9 +94,5 @@ public class Master {
 
 	public Game getGame() {
 		return game;
-	}
-
-	public Difficulty getDifficulty() {
-		return difficulty;
 	}
 }

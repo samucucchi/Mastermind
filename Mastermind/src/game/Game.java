@@ -1,42 +1,31 @@
 package game;
 
 import java.util.UUID;
+import game.enumerators.Colors;
+import game.enumerators.Difficulty;
 import player.*;
 
 public class Game {
-	private Player player1;
-	private Player player2;
 	private UUID gameId;
-	private boolean finished;
-	private int maxAttempts;
-
-	public Game(Decoder player1, Codifier player2, int attempts) {
-		this.player1 = player1;
-		this.player2 = player2;
-		this.gameId = UUID.randomUUID();
-		this.finished = false;
-		this.maxAttempts = attempts;
-	}
+	private final Difficulty difficulty;
+	private Player player;
+	private Colors[] sequence;
 	
-	public Game(Decoder player1, int attempts) {
-		this.player1 = player1;
-		this.player2 = null; 
-		this.gameId = UUID.randomUUID();
-		this.finished = false; 
-		this.maxAttempts = attempts;
+	public Game(Player player, Difficulty difficulty, Colors[] sequence) {
+		this.player = player;
+		this.difficulty = difficulty;
+		this.sequence = sequence;
 	}
 
-	public Player[] getPlayers() {
-		Player[] p = { player1, player2 };
-		return p;
+	public Player getPlayer() {
+		return player;
 	}
 	
-	public void saveGame() {
-		this.finished = true;
-		//TODO set DB to store games history
+	public Colors[] getSequence() {
+		return sequence;
 	}
 	
-	public int getMaxAttempts() {
-		return maxAttempts;
+	public Difficulty getDifficulty() {
+		return difficulty;
 	}
 }

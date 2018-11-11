@@ -12,12 +12,7 @@ public class Main {
 	static Master master;
 
 	public static void main(String[] args) {
-
-		master = new Master(new Game(new Decoder(null), 10), Difficulty.MEDIUM);
-		Colors[] col= master.generateSequence();
-		for(int i = 0; i < col.length; i++) {
-			System.out.print(col[i].toString() + " ");
-		}
+		Master master = new Master(Difficulty.HARD, new Player("Sam"));
 		/*
 		 * try { startGame(); } catch (ExceptionMain e) { // TODO Auto-generated catch
 		 * block e.printStackTrace(); }
