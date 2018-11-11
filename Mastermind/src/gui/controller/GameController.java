@@ -20,9 +20,9 @@ public abstract class GameController {
 	/*a type of game could have a different radius for its circles*/
 	protected int RADIUS;
 	
-	protected int hintGrid_column_number;
+	protected int hintPane_column_number;
 	
-	protected final int HINTGRID_ROW_NUMBER = 2;
+	protected final int HINTPANE_ROW_NUMBER = 2;
 	
 	protected final String WHITE_COLOR = "white";
 	
@@ -145,23 +145,28 @@ public abstract class GameController {
 	}
 	
 	private GridPane createHintPane() {
-		GridPane hintPane = new GridPane();
-		for(int i = 0; i < HINTGRID_ROW_NUMBER; i++) {
-			RowConstraints row = new RowConstraints(RADIUS);
-			hintPane.getRowConstraints().add(row);
-		}
-		for(int i = 0; i < hintGrid_column_number; i++) {
-			ColumnConstraints column = new ColumnConstraints(RADIUS);
-			hintPane.getColumnConstraints().add(column);
-		}
-		for (int i = 0; i < HINTGRID_ROW_NUMBER; i++) {
-			for (int j = 0; j < hintGrid_column_number; j++) {
+		GridPane hintPane = createGrid(HINTPANE_ROW_NUMBER, hintPane_column_number);
+		for (int i = 0; i < HINTPANE_ROW_NUMBER; i++) {
+			for (int j = 0; j < hintPane_column_number; j++) {
 				Pane pane = new Pane();
 				pane.setStyle("-fx-border-color: black");
 				hintPane.add(pane, j, i);
 			}
 		}
 		return hintPane;
+	}
+	
+	private GridPane createGrid(int rows, int columns) {
+		GridPane grid = new GridPane();
+		for(int i = 0; i < rows; i++) {
+			RowConstraints row = new RowConstraints(RADIUS);
+			grid.getRowConstraints().add(row);
+		}
+		for(int i = 0; i < columns; i++) {
+			ColumnConstraints column = new ColumnConstraints(RADIUS);
+			grid.getColumnConstraints().add(column);
+		}
+		return grid;
 	}
 	
 	protected void clearSequence(GridPane sequence) {
