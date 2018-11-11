@@ -12,6 +12,6 @@ public class DifficultyController {
 	private void startGame(ActionEvent event) throws IOException {
 		//prendo l'id del bottone
 		String difficulty = ((Button)event.getSource()).getId();
-		SceneCtrl.showGame(difficulty);
+		SceneController.showGame(difficulty);
 	}
 }

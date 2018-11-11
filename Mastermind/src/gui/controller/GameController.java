@@ -109,7 +109,7 @@ public abstract class GameController {
 
 	@FXML
 	protected void giveUp() throws IOException {
-		SceneCtrl.showMainMenu();
+		SceneController.showMainMenu();
 	}
 	
 	protected void enablePin(Paint color) {
