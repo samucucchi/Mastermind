@@ -11,8 +11,13 @@ import javafx.stage.Stage;
 
 public class SceneCtrl {
 
+	static final String MAIN_MENU_PATH = "../views/MainMenu.fxml";
+	static final String DIFFICULTY_MENU_PATH = "../views/DifficultyMenu.fxml";
+	static final String EASY_GAME_PATH = "../views/EasyGame.fxml";
+	static final String NORMAL_GAME_PATH = "../views/NormalGame.fxml";
+	static final String HARD_GAME_PATH = "../views/HardGame.fxml";
+	
 	public static Stage primaryStage;
-	public static Scene currentScene;
 	
 	public static void start(Stage primaryStage) throws Exception {
 		SceneCtrl.primaryStage = primaryStage;
@@ -22,12 +27,12 @@ public class SceneCtrl {
 	}
 	
 	public static void showMainMenu() throws IOException {
-		BorderPane mainMenu = (BorderPane)loadView("../views/MainMenu.fxml");
+		BorderPane mainMenu = (BorderPane)loadView(MAIN_MENU_PATH);
 		SceneCtrl.primaryStage.setScene(new Scene(mainMenu));
 	}
 	
 	public static void showDifficultyMenu() throws IOException {
-		BorderPane difficultyMenu = (BorderPane)loadView("../views/DifficultyMenu.fxml");
+		BorderPane difficultyMenu = (BorderPane)loadView(DIFFICULTY_MENU_PATH);
 		SceneCtrl.primaryStage.setScene(new Scene(difficultyMenu));
 	}
 
@@ -35,13 +40,13 @@ public class SceneCtrl {
 		String gamePath;
 		switch(difficulty) {
 		case "easy":
-			gamePath = "../views/EasyGame.fxml";
+			gamePath = EASY_GAME_PATH;
 			break;
 		case "normal":
-			gamePath = "../views/NormalGame.fxml";
+			gamePath = NORMAL_GAME_PATH;
 			break;
 		case "hard":
-			gamePath = "../views/HardGame.fxml";
+			gamePath = HARD_GAME_PATH;
 			break;
 		default:
 			throw new IOException("Board not found");
@@ -53,7 +58,6 @@ public class SceneCtrl {
 	private static Parent loadView(String path) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(SceneCtrl.class.getResource(path));
-		System.out.println("caricato");
 		return(loader.load());
 	}
 }

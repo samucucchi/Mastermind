@@ -20,6 +20,10 @@ public abstract class GameController {
 	/*a type of game could have a different radius for its circles*/
 	protected int RADIUS;
 	
+	protected int hintGrid_column_number;
+	
+	protected final int HINTGRID_ROW_NUMBER = 2;
+	
 	protected final String WHITE_COLOR = "white";
 	
 	protected final int COLOR_NUMBER = 8;
@@ -130,7 +134,7 @@ public abstract class GameController {
 			Circle previousPin = createSequenceCircle(pinColor);
 			previousSequence.add(previousPin, i, 0);
 		}
-		previousSequence.add(createIntPane(), sequence.getChildren().size() + 1, 0);
+		previousSequence.add(createHintPane(), sequence.getChildren().size() + 1, 0);
 		return previousSequence;
 	}
 	
@@ -140,22 +144,24 @@ public abstract class GameController {
 		return circle;
 	}
 	
-	private GridPane createIntPane() {
-		GridPane intPane = new GridPane();
-		for(int i = 0; i < 2; i++) {
-			ColumnConstraints column = new ColumnConstraints(RADIUS);
+	private GridPane createHintPane() {
+		GridPane hintPane = new GridPane();
+		for(int i = 0; i < HINTGRID_ROW_NUMBER; i++) {
 			RowConstraints row = new RowConstraints(RADIUS);
-			intPane.getColumnConstraints().add(column);
-			intPane.getRowConstraints().add(row);
+			hintPane.getRowConstraints().add(row);
 		}
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 2; j++) {
+		for(int i = 0; i < hintGrid_column_number; i++) {
+			ColumnConstraints column = new ColumnConstraints(RADIUS);
+			hintPane.getColumnConstraints().add(column);
+		}
+		for (int i = 0; i < HINTGRID_ROW_NUMBER; i++) {
+			for (int j = 0; j < hintGrid_column_number; j++) {
 				Pane pane = new Pane();
 				pane.setStyle("-fx-border-color: black");
-				intPane.add(pane, i, j);
+				hintPane.add(pane, j, i);
 			}
 		}
-		return intPane;
+		return hintPane;
 	}
 	
 	protected void clearSequence(GridPane sequence) {

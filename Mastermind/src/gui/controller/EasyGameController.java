@@ -10,8 +10,11 @@ public class EasyGameController extends GameController{
 
 	final int RADIUS = 25;
 	
+	final int HINTGRID_COLUMN_NUMBER = 2;
+	
 	public EasyGameController() {
 		super.RADIUS = this.RADIUS;
+		super.hintGrid_column_number = this.HINTGRID_COLUMN_NUMBER;
 	}
 	@FXML
 	protected void selectColor(MouseEvent event) {
