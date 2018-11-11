@@ -1,8 +1,12 @@
 package gui.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -95,7 +99,12 @@ public abstract class GameController {
 			clearSequence(sequence);
 		}
 		else {
-			System.out.println("Completare la sequenza");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Sequence error");
+			alert.setHeaderText(null);
+			alert.setContentText("Please, complete the sequence THEN press Check button.");
+
+			alert.showAndWait();
 		}
 	}
 	
@@ -111,7 +120,15 @@ public abstract class GameController {
 
 	@FXML
 	protected void giveUp() throws IOException {
-		SceneCtrl.showMainMenu();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation Dialog");
+		alert.setHeaderText(null);
+		alert.setContentText("Are you sure you want to give up?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			SceneCtrl.showMainMenu();
+		}
 	}
 	
 	protected void enablePin(Paint color) {

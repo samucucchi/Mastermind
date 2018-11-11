@@ -1,6 +1,8 @@
 package gui.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
@@ -40,7 +42,12 @@ public class EasyGameController extends GameController{
 			enableAllPins();
 		}
 		else {
-			System.out.println("Completare la sequenza");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Sequence error");
+			alert.setHeaderText(null);
+			alert.setContentText("Please, complete the sequence THEN press Check button.");
+
+			alert.showAndWait();
 		}
 	}
 	
