@@ -14,6 +14,11 @@ public class Master {
 
 	public Master(Difficulty difficulty, Player player) {
 		this.game = new Game(player, difficulty, generateSequence(difficulty));
+		
+		for(int i = 0; i < difficulty.getLength(); i++) {
+			System.out.print(game.getSequence()[i] + " ");
+		}
+		System.out.println();
 	}
 
 	/**
@@ -23,7 +28,7 @@ public class Master {
 	public int getRightPosition(Colors[] ins) {
 		int counter = 0;
 		for (int i = 0; i < ins.length; i++) {
-			if (true/*check sequence taking it from Game*/) {
+			if (ins[i] == game.getSequence()[i]) {
 				counter++;
 			}
 		}
@@ -38,7 +43,7 @@ public class Master {
 		int counter = 0;
 		for (int i = 0; i < ins.length; i++) {
 			for (int c = 0; c < ins.length; c++) {
-				if (true /*ins[i] == seq[c] && i != c*/) {
+				if (ins[i] == game.getSequence()[c] && i != c) {
 					counter++;
 					if (counter == ins.length) { // if ins.lenght have been guessed, is useless to continue to search
 						break;
