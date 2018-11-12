@@ -86,6 +86,10 @@ public class Master {
 		result[1] = wrongPos;
 		System.out.println("Giusti: " + rightPos);
 		System.out.println("Sbagliati: " + wrongPos);
+		game.setAttempts();
+		if(game.getAttempts() == game.getDifficulty().getAttempts() ) {
+			System.out.println("Brutto coglione hai perso! " + game.getAttempts()); 
+		}
 		return result;
 	}
 	
