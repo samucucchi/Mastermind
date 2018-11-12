@@ -1,10 +1,10 @@
 package gui.controller;
 
-public class NormalGameController extends GameController {
+public class MediumGameController extends GameController {
 
 	final int RADIUS = 25;
 	
-	public NormalGameController() {
+	public MediumGameController() {
 		super.RADIUS = this.RADIUS;
 	}
 }
