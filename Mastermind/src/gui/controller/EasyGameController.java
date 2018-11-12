@@ -72,8 +72,9 @@ public class EasyGameController extends GameController{
 	private void enableAllPins() {
 		for(int i = 0; i < inputPins.getChildren().size(); i++) {
 			Circle currentCircle = (Circle)inputPins.getChildren().get(i);
-			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
-			currentCircle.setFill(defaultColor);
+			String defaultColor = (String)currentCircle.getProperties().get("defaultColor");
+			Paint color = Paint.valueOf(defaultColor);
+			currentCircle.setFill(color);
 		}
 	}
 	

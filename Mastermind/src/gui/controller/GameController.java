@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import game.Master;
+import game.enumerators.Colors;
 import gui.Drawer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -46,7 +47,7 @@ public abstract class GameController {
 	protected Master master;
 	
 	/*matrix representing colors to be displayed in input pins*/
-	protected String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
+	protected String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "violet"}, {"brown", "black"}};
 	
 	/*clickable pins*/
 	@FXML protected GridPane inputPins;
@@ -72,7 +73,7 @@ public abstract class GameController {
 				/*takes color from pinColors*/
 				Circle pin = drawer.createCircle(INPUT_PIN_RADIUS, Paint.valueOf(pinColors[i][j]));
 				/*adds "defaultColor" property, so color can be restored*/
-				pin.getProperties().put("defaultColor", pin.getFill());
+				pin.getProperties().put("defaultColor", pinColors[i][j]);
 				/*associates the method when the user clicks a pin*/
 				pin.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 					selectColor(event);
@@ -89,6 +90,7 @@ public abstract class GameController {
 		sequence = drawer.createGrid(1, sequence_length, dimension);
 		for(int i = 0; i < sequence_length; i++) {
 			Circle sequenceCircle = drawer.createCircle(sequenceCircleRadius, Paint.valueOf(WHITE_COLOR));
+			sequenceCircle.getProperties().put("currentColor", "white");
 			sequenceCircle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 				removeColor(event);
 			});
@@ -108,6 +110,7 @@ public abstract class GameController {
 			Circle sequenceSlot = (Circle) sequence.getChildren().get(i);
 			if (sequenceSlot.getFill() == Paint.valueOf(WHITE_COLOR)) {
 				sequenceSlot.setFill(pinSelected.getFill());
+				sequenceSlot.getProperties().put("currentColor", pinSelected.getProperties().get("defaultColor"));
 				break;
 			}
 		}
@@ -120,6 +123,9 @@ public abstract class GameController {
 		if(isSequenceCompleted(sequence)) {
 			/*gets a copy of the sequence*/
 			GridPane previousSequence = drawer.createPreviousSequence(sequence, previousSequenceCircleRadius, HINTPANE_ROW_NUMBER, hintPane_column_number);
+			//convert sequence to enums
+			convertToColors();
+			//masterchecksequence
 			previousSequence.setHgap(5);
 			/*adds the sequence into the container*/
 			previousSequences.getChildren().add(previousSequence);
@@ -178,6 +184,7 @@ public abstract class GameController {
 		for(int i = 0; i < sequence.getChildren().size(); i++) {
 			Circle pin = ((Circle)sequence.getChildren().get(i));
 			pin.setFill(whiteColor);
+			pin.getProperties().put("currentColor", WHITE_COLOR);
 		}
 	}
 	
@@ -189,5 +196,18 @@ public abstract class GameController {
 			}
 		}
 		return true;
+	}
+	
+	protected void convertToColors() {
+		Colors[] sequenceToCheck = new Colors[sequence_length];
+		for(int i = 0; i < sequence_length; i++) {
+			Circle pin = (Circle)sequence.getChildren().get(i);
+			String color = (String)pin.getProperties().get("currentColor");
+			color = color.toUpperCase();
+			//System.out.println(color.toString());
+			Colors colorToCheck = Colors.valueOf(color);
+			sequenceToCheck[i] = colorToCheck;
+		}
+		master.checkSequence(sequenceToCheck);
 	}
 }

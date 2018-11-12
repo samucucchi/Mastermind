@@ -78,10 +78,14 @@ public class Master {
 		rightPos = getRightPosition(ins,checkedSequence);
 		if (rightPos != ins.length) {
 			wrongPos = getWrongPosition(ins,checkedSequence);
+		}
+		else {
 			return result;
 		}
 		result[0] = rightPos;
 		result[1] = wrongPos;
+		System.out.println("Giusti: " + rightPos);
+		System.out.println("Sbagliati: " + wrongPos);
 		return result;
 	}
 	
@@ -120,7 +124,7 @@ public class Master {
 	}
 
 	private Colors[] copySequence (Colors[] sequence) {
-		Colors[] copy = {};
+		Colors[] copy = new Colors[sequence.length];
 		for (int i = 0; i < sequence.length; i++) {
 			copy[i] = sequence[i];
 		}
