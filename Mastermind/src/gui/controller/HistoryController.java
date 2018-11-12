@@ -12,13 +12,16 @@ import javafx.scene.control.ComboBox;
 
 public class HistoryController {
 
-	protected String[] difficulties= {"Easy","Normal","Hard"};
+	protected String[] difficulties= {"Easy","Medium","Hard"};
 	@FXML
 	private ComboBox<String> comboBox;
 	
 	public void initialize() {
+		// comboBox elements resest and update
 	    comboBox.getItems().clear();
-	    comboBox.getItems().addAll("Easy", "Normal", "Hard");
+	    comboBox.getItems().addAll("Easy", "Medium", "Hard");
+	    // event listener for the comboBox
+	    // TODO change println with actual code!!!
 	    comboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 	        @Override public void changed(ObservableValue<? extends String> selected, String oldDiff, String newDiff) {
 	          if (newDiff != null) {
@@ -27,16 +30,6 @@ public class HistoryController {
 	        }
 	    });
 	}
-
-	/*
-	@FXML
-	protected void chooseDifficulty(ActionEvent event) throws IOException {
-		ComboBox<String> comboBox= ((ComboBox<String>)event.getSource());
-		String difficulty = comboBox.getValue();
-		System.out.println("User selected: " + difficulty);
-	}
-	
-	*/
 	
 	@FXML
 	protected void goToMenu() throws IOException {
