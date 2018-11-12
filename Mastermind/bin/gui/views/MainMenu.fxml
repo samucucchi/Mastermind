@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane maxHeight="670.0" maxWidth="400.0" minHeight="670.0" minWidth="400.0" prefHeight="670.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="gui.controller.MainMenuController">
+   <children>
+      <ImageView fitHeight="670.0" fitWidth="400.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../images/MMBackground.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/MMlogo.jpg" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </ImageView>
+            <Button maxHeight="100.0" maxWidth="350.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#play" prefHeight="100.0" prefWidth="350.0" text="Play">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </Button>
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="100.0" maxWidth="350.0" minHeight="100.0" minWidth="350.0" mnemonicParsing="false" onAction="#showHistory" prefHeight="100.0" prefWidth="350.0" text="History">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

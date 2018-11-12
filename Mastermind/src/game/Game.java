@@ -10,11 +10,13 @@ public class Game {
 	private final Difficulty difficulty;
 	private Player player;
 	private Colors[] sequence;
+	private int attempts;
 	
 	public Game(Player player, Difficulty difficulty, Colors[] sequence) {
 		this.player = player;
 		this.difficulty = difficulty;
 		this.sequence = sequence;
+		this.attempts = 0;
 	}
 
 	public Player getPlayer() {
@@ -27,5 +29,13 @@ public class Game {
 	
 	public Difficulty getDifficulty() {
 		return difficulty;
+	}
+	
+	public int getAttempts() {
+		return attempts;
+	}
+	
+	public void setAttempts() {
+		attempts++;
 	}
 }
