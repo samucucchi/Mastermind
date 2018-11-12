@@ -6,12 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class DifficultyCtrl {
+public class DifficultyController {
 
 	@FXML
 	private void startGame(ActionEvent event) throws IOException {
 		//prendo l'id del bottone
 		String difficulty = ((Button)event.getSource()).getId();
-		SceneCtrl.showGame(difficulty);
+		SceneController.showGame(difficulty);
 	}
 }

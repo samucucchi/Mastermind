@@ -31,7 +31,9 @@ public abstract class GameController {
 	
 	protected final String WHITE_COLOR = "white";
 	
-	protected final int COLOR_NUMBER = 8;
+	protected final int COLORS_NUMBER = 8;
+	
+	protected final int PINS_COLUMNS = 2;
 	
 	protected final int INPUT_PINS_COLUMNS = 2;
 	
@@ -52,6 +54,7 @@ public abstract class GameController {
 	/*intitializes and draws input pins*/
 	@FXML
 	protected void initialize() {
+
 		for(int i = 0; i < INPUT_PINS_ROWS; i++) {
 			for(int j = 0; j < INPUT_PINS_COLUMNS; j++) {
 				/*takes color from pinColors*/
@@ -127,7 +130,7 @@ public abstract class GameController {
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
-			SceneCtrl.showMainMenu();
+			SceneController.showMainMenu();
 		}
 	}
 	

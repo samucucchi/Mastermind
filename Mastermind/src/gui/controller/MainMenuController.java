@@ -5,16 +5,16 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class MainMenuCtrl {
+public class MainMenuController {
 
 	//annotazione per il file fxml
 	@FXML
 	private void play(ActionEvent event) throws IOException {
-		SceneCtrl.showDifficultyMenu();
+		SceneController.showDifficultyMenu();
 	}
 	
 	@FXML
-	private void showHistory(ActionEvent event) {
-		
+	private void showHistory(ActionEvent event) throws IOException{
+		SceneController.showHistoryMenu();
 	}
 }
