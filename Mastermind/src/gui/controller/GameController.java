@@ -3,16 +3,14 @@ package gui.controller;
 import java.io.IOException;
 import java.util.Optional;
 
+import gui.Drawer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -42,6 +40,8 @@ public abstract class GameController {
 	
 	protected final int INPUT_PINS_ROWS = 4;
 	
+	protected final Drawer drawer = new Drawer();
+	
 	/*matrix representing colors to be displayed in input pins*/
 	protected String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
 	
@@ -49,7 +49,7 @@ public abstract class GameController {
 	@FXML protected GridPane inputPins;
 	
 	/*sequence under pins*/
-	@FXML protected GridPane sequence;
+	protected GridPane sequence;
 	@FXML protected Pane sequenceContainer;
 	
 	/*right half of the screen*/
@@ -59,7 +59,7 @@ public abstract class GameController {
 	@FXML
 	protected void initialize() {
 		drawInputPins();
-		drawSequenceGrid();
+		sequence = drawer.drawSequenceGrid(sequenceContainer, sequence_length, sequenceCircleRadius);
 	}
 	
 	@FXML
@@ -67,8 +67,7 @@ public abstract class GameController {
 		for(int i = 0; i < INPUT_PINS_ROWS; i++) {
 			for(int j = 0; j < INPUT_PINS_COLUMNS; j++) {
 				/*takes color from pinColors*/
-				Circle pin = new Circle(INPUT_PIN_RADIUS, Paint.valueOf(pinColors[i][j]));
-				pin.setStroke(Paint.valueOf("black"));
+				Circle pin = drawer.createCircle(INPUT_PIN_RADIUS, Paint.valueOf(pinColors[i][j]));
 				/*adds "defaultColor" property, so color can be restored*/
 				pin.getProperties().put("defaultColor", pin.getFill());
 				/*associates the method when the user clicks a pin*/
@@ -80,17 +79,7 @@ public abstract class GameController {
 			}
 		}
 	}
-	@FXML
-	protected void drawSequenceGrid() {
-		double dimension = 250/sequence_length;
-		sequence = createGrid(1, sequence_length, dimension);
-		for(int i = 0; i < sequence_length; i++) {
-			Circle sequenceCircle = createCircle(Paint.valueOf(WHITE_COLOR), sequenceCircleRadius);
-			sequence.add(sequenceCircle, i, 0);
-			System.out.println("Diocane");
-		}
-		sequenceContainer.getChildren().add(sequence);
-	}
+	
 	
 	/*user clicks a pin:
 	 * the color chosen is inserted into the sequence*/
@@ -99,7 +88,7 @@ public abstract class GameController {
 		/*gets the origin circle*/
 		Circle pinSelected = (Circle)event.getSource();
 		/*inserts the selected color in the first white sequence slot*/
-		for (int i = 0; i < sequence.getChildren().size(); i++) {
+		for (int i = 0; i < sequence_length; i++) {
 			Circle sequenceSlot = (Circle) sequence.getChildren().get(i);
 			if (sequenceSlot.getFill() == Paint.valueOf(WHITE_COLOR)) {
 				sequenceSlot.setFill(pinSelected.getFill());
@@ -114,7 +103,7 @@ public abstract class GameController {
 	protected void checkSequence() {
 		if(isSequenceCompleted(sequence)) {
 			/*gets a copy of the sequence*/
-			GridPane previousSequence = createPreviousSequence(sequence);
+			GridPane previousSequence = drawer.createPreviousSequence(sequence, previousSequenceCircleRadius, HINTPANE_ROW_NUMBER, hintPane_column_number);
 			previousSequence.setHgap(5);
 			/*adds the sequence into the container*/
 			previousSequences.getChildren().add(previousSequence);
@@ -166,49 +155,6 @@ public abstract class GameController {
 	
 	protected void disablePin(Circle pin) {
 		pin.setFill(Paint.valueOf(WHITE_COLOR));
-	}
-	
-	protected GridPane createPreviousSequence(GridPane sequence) {
-		GridPane previousSequence = new GridPane();
-		for(int i = 0; i < sequence.getChildren().size(); i++) {
-			Paint pinColor = ((Circle)sequence.getChildren().get(i)).getFill();
-			Circle previousPin = createCircle(pinColor, previousSequenceCircleRadius);
-			previousSequence.add(previousPin, i, 0);
-		}
-		previousSequence.add(createHintPane(), sequence.getChildren().size() + 1, 0);
-		return previousSequence;
-	}
-	
-	private Circle createCircle(Paint color, double radius) {
-		Circle circle = new Circle(radius, color);
-		circle.setStroke(Paint.valueOf("black"));
-		return circle;
-	}
-	
-	private GridPane createHintPane() {
-		GridPane hintPane = createGrid(HINTPANE_ROW_NUMBER, hintPane_column_number, previousSequenceCircleRadius);
-		for (int i = 0; i < HINTPANE_ROW_NUMBER; i++) {
-			for (int j = 0; j < hintPane_column_number; j++) {
-				BorderPane cell = new BorderPane();
-				cell.setStyle("-fx-border-color: black");
-				cell.setCenter(new Circle(previousSequenceCircleRadius/2, Paint.valueOf("black")));
-				hintPane.add(cell, j, i);
-			}
-		}
-		return hintPane;
-	}
-	
-	private GridPane createGrid(int rows, int columns, double dimension) {
-		GridPane grid = new GridPane();
-		for(int i = 0; i < rows; i++) {
-			RowConstraints row = new RowConstraints(dimension);
-			grid.getRowConstraints().add(row);
-		}
-		for(int i = 0; i < columns; i++) {
-			ColumnConstraints column = new ColumnConstraints(dimension);
-			grid.getColumnConstraints().add(column);
-		}
-		return grid;
 	}
 	
 	protected void clearSequence(GridPane sequence) {

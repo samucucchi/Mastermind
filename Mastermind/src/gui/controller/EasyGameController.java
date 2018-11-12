@@ -41,7 +41,7 @@ public class EasyGameController extends GameController{
 	@FXML
 	protected void checkSequence() {
 		if(isSequenceCompleted(sequence)) {
-			GridPane previousSequence = createPreviousSequence(sequence);
+			GridPane previousSequence = drawer.createPreviousSequence(sequence, PREVIOUS_SEQUENCE_RADIUS, HINTPANE_ROW_NUMBER, HINTPANE_COLUMN_NUMBER);
 			previousSequence.setHgap(5);
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
