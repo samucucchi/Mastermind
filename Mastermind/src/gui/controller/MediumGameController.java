@@ -1,5 +1,9 @@
 package gui.controller;
 
+import game.Master;
+import game.enumerators.Difficulty;
+import player.Player;
+
 public class MediumGameController extends GameController {
 
 	final double SEQUENCE_RADIUS = 31.25;
@@ -11,6 +15,7 @@ public class MediumGameController extends GameController {
 	final int SEQUENCE_LENGTH = 4;
 	
 	public MediumGameController() {
+		super.master = new Master(Difficulty.MEDIUM, new Player("ciao"));
 		super.sequenceCircleRadius = this.SEQUENCE_RADIUS;
 		super.previousSequenceCircleRadius = this.PREVIOUS_SEQUENCE_RADIUS;
 		super.hintPane_column_number = this.HINTPANE_COLUMN_NUMBER;

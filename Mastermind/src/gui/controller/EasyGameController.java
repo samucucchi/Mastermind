@@ -1,5 +1,7 @@
 package gui.controller;
 
+import game.Master;
+import game.enumerators.Difficulty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -7,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import player.Player;
 
 public class EasyGameController extends GameController{
 
@@ -19,6 +22,7 @@ public class EasyGameController extends GameController{
 	final int SEQUENCE_LENGTH = 4;
 	
 	public EasyGameController() {
+		super.master = new Master(Difficulty.EASY, new Player("ciao"));
 		super.sequenceCircleRadius = this.SEQUENCE_RADIUS;
 		super.previousSequenceCircleRadius = this.PREVIOUS_SEQUENCE_RADIUS;
 		super.hintPane_column_number = this.HINTPANE_COLUMN_NUMBER;

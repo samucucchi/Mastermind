@@ -3,6 +3,7 @@ package gui.controller;
 import java.io.IOException;
 import java.util.Optional;
 
+import game.Master;
 import gui.Drawer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -41,6 +42,8 @@ public abstract class GameController {
 	protected final int INPUT_PINS_ROWS = 4;
 	
 	protected final Drawer drawer = new Drawer();
+	
+	protected Master master;
 	
 	/*matrix representing colors to be displayed in input pins*/
 	protected String[][] pinColors = {{"red", "blue"}, {"green", "yellow"}, {"orange", "purple"}, {"brown", "black"}};
