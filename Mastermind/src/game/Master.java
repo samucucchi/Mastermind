@@ -15,45 +15,12 @@ public class Master {
 	public Master(Difficulty difficulty, Player player) {
 		this.game = new Game(player, difficulty, generateSequence(difficulty));
 		
-		for(int i = 0; i < difficulty.getLength(); i++) {
+		for(int i = 0; i < difficulty.getSequenceLength(); i++) {
 			System.out.print(game.getSequence()[i] + " ");
 		}
 		System.out.println();
 	}
-
-	/**
-	 * @param ins : array containing the values inserted by the decoder
-	 * @return how much values have been guessed in right position
-	 */
-	public int getRightPosition(Colors[] ins) {
-		int counter = 0;
-		for (int i = 0; i < ins.length; i++) {
-			if (ins[i] == game.getSequence()[i]) {
-				counter++;
-			}
-		}
-		return counter;
-	}
-
-	/**
-	 * @param ins : array containing the values inserted by the decoder
-	 * @return how much values have been guessed in right position
-	 */
-	public int getWrongPosition(Colors[] ins) {
-		int counter = 0;
-		for (int i = 0; i < ins.length; i++) {
-			for (int c = 0; c < ins.length; c++) {
-				if (ins[i] == game.getSequence()[c] && i != c) {
-					counter++;
-					if (counter == ins.length) { // if ins.lenght have been guessed, is useless to continue to search
-						break;
-					}
-				}
-			}
-		}
-		return counter;
-	}
-
+	
 	/**
 	 * @return the sequence generated, basing on the difficulty selected before
 	 */
@@ -69,33 +36,97 @@ public class Master {
 	}
 	
 	/**
-	 * Generates a sequence of medium or hard difficulty
-	 * @return the sequence generated
-	 */
-	private Colors[] generateHardSequence(Difficulty difficulty) {
-		//TODO test
-		Colors[] colors = new Colors[difficulty.getLength()];
-		for(int i = 0; i < difficulty.getLength(); i++) {
-			//takes randomly an element (with repetitions) from the values into Colors
-			colors[i] = Colors.values()[new Random().nextInt(difficulty.getLength())];
-		}
-		return colors; 
-	}
-
-	/**
 	 * Generates a sequence of easy difficulty
 	 * @return the sequence generated
 	 */
 	private Colors[] generateEasySequence(Difficulty difficulty) {
 		//TODO: test
-		Colors[] colors = new Colors[difficulty.getLength()];
+		Colors[] colors = new Colors[difficulty.getSequenceLength()];
 		List<Colors> notInserted = new ArrayList<Colors>(Arrays.asList(Colors.values()));
-		for(int i = 0; i < difficulty.getLength(); i++) {
+		for(int i = 0; i < difficulty.getSequenceLength(); i++) {
 			//insert into colors the remaining not inserted elements into notInserted
 			colors[i] = notInserted.remove(new Random().nextInt(notInserted.size()));
 		}
 		return colors;
 	}
+	
+	/**
+	 * Generates a sequence of medium or hard difficulty
+	 * @return the sequence generated
+	 */
+	private Colors[] generateHardSequence(Difficulty difficulty) {
+		//TODO test
+		Colors[] colors = new Colors[difficulty.getSequenceLength()];
+		for(int i = 0; i < difficulty.getSequenceLength(); i++) {
+			//takes randomly an element (with repetitions) from the values into Colors
+			colors[i] = Colors.values()[new Random().nextInt(difficulty.getSequenceLength())];
+		}
+		return colors; 
+	}
+
+
+	/**
+	 * @param ins : array containing the values inserted by the decoder
+	 * @return how much values have been guessed in right position
+	 */
+	
+	public int[] checkSequence(Colors[] ins) {
+		int rightPos = 0;
+		int wrongPos = 0;
+		int [] result = {rightPos,wrongPos};
+		Colors [] checkedSequence = copySequence(game.getSequence());
+		rightPos = getRightPosition(ins,checkedSequence);
+		if (rightPos != ins.length) {
+			wrongPos = getWrongPosition(ins,checkedSequence);
+			return result;
+		}
+		result[0] = rightPos;
+		result[1] = wrongPos;
+		return result;
+	}
+	
+	public int getRightPosition(Colors[] ins, Colors[] checkedSequence) {
+		int counter = 0;
+		for (int i = 0; i < ins.length; i++) {
+			if (ins[i] == game.getSequence()[i]) {
+				counter++;
+				ins[i] = null;
+				checkedSequence[i] = null;
+			}
+			if (counter == ins.length) { // if the hole sequence has been correctly guessed, end the game
+				System.out.println("CONGRATS, YOU WON!");
+				break;
+			}
+		}
+		return counter;
+	}
+	
+	public int getWrongPosition(Colors[] ins, Colors[] checkedSequence) {
+		int counter = 0;
+		for (int i = 0; i < ins.length; i++) {
+			if (ins[i]!=null) {
+				for (int c = 0; c < ins.length; c++) {
+					if (ins[i] == checkedSequence[c]) {
+						counter++;
+						if (counter == ins.length) { // if ins.length have been guessed, is useless to continue to search
+							break;
+						}
+					}
+				}
+			}
+
+		}
+		return counter;
+	}
+
+	private Colors[] copySequence (Colors[] sequence) {
+		Colors[] copy = {};
+		for (int i = 0; i < sequence.length; i++) {
+			copy[i] = sequence[i];
+		}
+		return copy;
+	}
+	
 
 	public Game getGame() {
 		return game;
