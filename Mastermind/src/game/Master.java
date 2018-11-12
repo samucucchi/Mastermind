@@ -14,11 +14,6 @@ public class Master {
 
 	public Master(Difficulty difficulty, Player player) {
 		this.game = new Game(player, difficulty, generateSequence(difficulty));
-		
-		for(int i = 0; i < difficulty.getLength(); i++) {
-			System.out.print(game.getSequence()[i] + " ");
-		}
-		System.out.println();
 	}
 
 	/**
@@ -27,8 +22,9 @@ public class Master {
 	 */
 	public int getRightPosition(Colors[] ins) {
 		int counter = 0;
+		Colors[] guess = game.getSequence();
 		for (int i = 0; i < ins.length; i++) {
-			if (ins[i] == game.getSequence()[i]) {
+			if (ins[i] == guess[i]) {
 				counter++;
 			}
 		}
@@ -57,7 +53,7 @@ public class Master {
 	/**
 	 * @return the sequence generated, basing on the difficulty selected before
 	 */
-	public Colors[] generateSequence(Difficulty difficulty) {
+	private Colors[] generateSequence(Difficulty difficulty) {
 		//TODO exception if difficulty has not been set
 		if(difficulty == Difficulty.EASY) {
 			//generates sequence with no repetitions 
