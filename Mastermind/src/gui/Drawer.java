@@ -3,7 +3,6 @@ package gui;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -16,16 +15,6 @@ public class Drawer {
 		return circle;
 	}
 	
-	public GridPane drawSequenceGrid(Pane container, int sequenceLength, double radius) {
-		double dimension = 250/sequenceLength;
-		GridPane sequence = createGrid(1, sequenceLength, dimension);
-		for(int i = 0; i < sequenceLength; i++) {
-			Circle sequenceCircle = createCircle(radius, Paint.valueOf("white"));
-			sequence.add(sequenceCircle, i, 0);
-		}
-		container.getChildren().add(sequence);
-		return sequence;
-	}
 	
 	public GridPane createGrid(int rows, int columns, double dimension) {
 		GridPane grid = new GridPane();

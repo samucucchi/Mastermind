@@ -59,7 +59,7 @@ public abstract class GameController {
 	@FXML
 	protected void initialize() {
 		drawInputPins();
-		sequence = drawer.drawSequenceGrid(sequenceContainer, sequence_length, sequenceCircleRadius);
+		drawSequenceGrid();
 	}
 	
 	@FXML
@@ -79,7 +79,20 @@ public abstract class GameController {
 			}
 		}
 	}
-	
+
+	@FXML
+	public void drawSequenceGrid() {
+		double dimension = 250/sequence_length;
+		sequence = drawer.createGrid(1, sequence_length, dimension);
+		for(int i = 0; i < sequence_length; i++) {
+			Circle sequenceCircle = drawer.createCircle(sequenceCircleRadius, Paint.valueOf(WHITE_COLOR));
+			sequenceCircle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+				removeColor(event);
+			});
+			sequence.add(sequenceCircle, i, 0);
+		}
+		sequenceContainer.getChildren().add(sequence);
+	}
 	
 	/*user clicks a pin:
 	 * the color chosen is inserted into the sequence*/
