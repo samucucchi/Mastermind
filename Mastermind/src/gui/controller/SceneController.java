@@ -40,19 +40,16 @@ public class SceneController {
 	}
 
 	public static void showGame(String difficulty) throws IOException{
-		String gamePath;
+		String gamePath = "../views/Game.fxml";
 		GameController controller;
 		switch(difficulty) {
 		case "easy":
-			gamePath = "../views/EasyGame.fxml";
 			controller = new EasyGameController();
 			break;
 		case "normal":
-			gamePath = "../views/EasyGame.fxml";
 			controller = new MediumGameController();
 			break;
 		case "hard":
-			gamePath = "../views/EasyGame.fxml";
 			controller = new HardGameController();
 			break;
 		default:

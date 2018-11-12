@@ -27,6 +27,8 @@ public abstract class GameController {
 	
 	protected int hintPane_column_number;
 	
+	protected int sequence_length;
+	
 	protected final int HINTPANE_ROW_NUMBER = 2;
 	
 	protected final String WHITE_COLOR = "white";
@@ -47,6 +49,7 @@ public abstract class GameController {
 	
 	/*sequence under pins*/
 	@FXML protected GridPane sequence;
+	@FXML protected Pane sequenceContainer;
 	
 	/*right half of the screen*/
 	@FXML protected VBox previousSequences;
@@ -54,7 +57,12 @@ public abstract class GameController {
 	/*intitializes and draws input pins*/
 	@FXML
 	protected void initialize() {
-
+		drawInputPins();
+		drawSequenceGrid();
+	}
+	
+	@FXML
+	protected void drawInputPins() {
 		for(int i = 0; i < INPUT_PINS_ROWS; i++) {
 			for(int j = 0; j < INPUT_PINS_COLUMNS; j++) {
 				/*takes color from pinColors*/
@@ -70,6 +78,18 @@ public abstract class GameController {
 				inputPins.add(pin, j, i);
 			}
 		}
+	}
+	@FXML
+	protected void drawSequenceGrid() {
+		double dimension = 250/sequence_length;
+		sequence = createGrid(1, sequence_length, dimension);
+		for(int i = 0; i < sequence_length; i++) {
+			Circle sequenceCircle = new Circle(dimension/2, Paint.valueOf(WHITE_COLOR));
+			sequenceCircle.setStroke(Paint.valueOf("black"));
+			sequence.add(sequenceCircle, i, 0);
+			System.out.println("Diocane");
+		}
+		sequenceContainer.getChildren().add(sequence);
 	}
 	
 	/*user clicks a pin:
@@ -166,7 +186,7 @@ public abstract class GameController {
 	}
 	
 	private GridPane createHintPane() {
-		GridPane hintPane = createGrid(HINTPANE_ROW_NUMBER, hintPane_column_number);
+		GridPane hintPane = createGrid(HINTPANE_ROW_NUMBER, hintPane_column_number, RADIUS);
 		for (int i = 0; i < HINTPANE_ROW_NUMBER; i++) {
 			for (int j = 0; j < hintPane_column_number; j++) {
 				BorderPane cell = new BorderPane();
@@ -178,14 +198,14 @@ public abstract class GameController {
 		return hintPane;
 	}
 	
-	private GridPane createGrid(int rows, int columns) {
+	private GridPane createGrid(int rows, int columns, double dimension) {
 		GridPane grid = new GridPane();
 		for(int i = 0; i < rows; i++) {
-			RowConstraints row = new RowConstraints(RADIUS);
+			RowConstraints row = new RowConstraints(dimension);
 			grid.getRowConstraints().add(row);
 		}
 		for(int i = 0; i < columns; i++) {
-			ColumnConstraints column = new ColumnConstraints(RADIUS);
+			ColumnConstraints column = new ColumnConstraints(dimension);
 			grid.getColumnConstraints().add(column);
 		}
 		return grid;
