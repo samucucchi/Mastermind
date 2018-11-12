@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HistoryController">
+<StackPane prefHeight="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="gui.controller.HistoryController">
    <children>
       <ImageView fitHeight="635.0" fitWidth="400.0" pickOnBounds="true">
          <image>
@@ -143,7 +143,7 @@
                   </VBox>
                </children>
             </StackPane>
-            <Button mnemonicParsing="false" text="Menu">
+            <Button mnemonicParsing="false" onAction="#goToMenu" text="Menu">
                <VBox.margin>
                   <Insets left="175.0" top="10.0" />
                </VBox.margin>

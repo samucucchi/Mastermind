@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<StackPane maxHeight="900.0" maxWidth="555.0" minHeight="900.0" minWidth="555.0" prefHeight="900.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EasyGameController">
+<StackPane maxHeight="900.0" maxWidth="555.0" minHeight="900.0" minWidth="555.0" prefHeight="900.0" prefWidth="555.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="gui.controller.EasyGameController">
    <children>
       <ImageView fitHeight="900.0" fitWidth="555.0" pickOnBounds="true">
          <image>

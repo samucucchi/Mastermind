@@ -1,5 +1,7 @@
 package gui.controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -17,15 +19,24 @@ public class HistoryController {
 	public void initialize() {
 	    comboBox.getItems().clear();
 	    comboBox.getItems().addAll("Easy", "Normal", "Hard");
+	    comboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+	        @Override public void changed(ObservableValue<? extends String> selected, String oldDiff, String newDiff) {
+	          if (newDiff != null) {
+	        	  System.out.println("User selected: " + newDiff);
+	          }
+	        }
+	    });
 	}
 
-	
+	/*
 	@FXML
 	protected void chooseDifficulty(ActionEvent event) throws IOException {
-		String difficulty = "";
+		ComboBox<String> comboBox= ((ComboBox<String>)event.getSource());
+		String difficulty = comboBox.getValue();
 		System.out.println("User selected: " + difficulty);
 	}
 	
+	*/
 	
 	@FXML
 	protected void goToMenu() throws IOException {
