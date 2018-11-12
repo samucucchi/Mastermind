@@ -22,8 +22,9 @@ public abstract class GameController {
 	/*input pin radius is fixed*/
 	protected final int INPUT_PIN_RADIUS = 25;
 	
-	/*a type of game could have a different radius for its circles*/
-	protected int RADIUS;
+	protected double sequenceCircleRadius;
+	
+	protected int previousSequenceCircleRadius;
 	
 	protected int hintPane_column_number;
 	
@@ -84,8 +85,7 @@ public abstract class GameController {
 		double dimension = 250/sequence_length;
 		sequence = createGrid(1, sequence_length, dimension);
 		for(int i = 0; i < sequence_length; i++) {
-			Circle sequenceCircle = new Circle(dimension/2, Paint.valueOf(WHITE_COLOR));
-			sequenceCircle.setStroke(Paint.valueOf("black"));
+			Circle sequenceCircle = createCircle(Paint.valueOf(WHITE_COLOR), sequenceCircleRadius);
 			sequence.add(sequenceCircle, i, 0);
 			System.out.println("Diocane");
 		}
@@ -172,26 +172,26 @@ public abstract class GameController {
 		GridPane previousSequence = new GridPane();
 		for(int i = 0; i < sequence.getChildren().size(); i++) {
 			Paint pinColor = ((Circle)sequence.getChildren().get(i)).getFill();
-			Circle previousPin = createSequenceCircle(pinColor);
+			Circle previousPin = createCircle(pinColor, previousSequenceCircleRadius);
 			previousSequence.add(previousPin, i, 0);
 		}
 		previousSequence.add(createHintPane(), sequence.getChildren().size() + 1, 0);
 		return previousSequence;
 	}
 	
-	private Circle createSequenceCircle(Paint color) {
-		Circle circle = new Circle(RADIUS, color);
+	private Circle createCircle(Paint color, double radius) {
+		Circle circle = new Circle(radius, color);
 		circle.setStroke(Paint.valueOf("black"));
 		return circle;
 	}
 	
 	private GridPane createHintPane() {
-		GridPane hintPane = createGrid(HINTPANE_ROW_NUMBER, hintPane_column_number, RADIUS);
+		GridPane hintPane = createGrid(HINTPANE_ROW_NUMBER, hintPane_column_number, previousSequenceCircleRadius);
 		for (int i = 0; i < HINTPANE_ROW_NUMBER; i++) {
 			for (int j = 0; j < hintPane_column_number; j++) {
 				BorderPane cell = new BorderPane();
 				cell.setStyle("-fx-border-color: black");
-				cell.setCenter(new Circle(RADIUS/2, Paint.valueOf("black")));
+				cell.setCenter(new Circle(previousSequenceCircleRadius/2, Paint.valueOf("black")));
 				hintPane.add(cell, j, i);
 			}
 		}

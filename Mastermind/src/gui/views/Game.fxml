@@ -64,8 +64,14 @@
          <right>
             <ScrollPane cache="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="900.0" maxWidth="305.0" minHeight="900.0" minWidth="305.0" opacity="0.5" pickOnBounds="false" prefHeight="900.0" prefWidth="305.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="previousSequences" spacing="10.0" />
+                  <VBox fx:id="previousSequences" spacing="10.0">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding></VBox>
                </content>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
             </ScrollPane>
          </right>
       </BorderPane>
