@@ -11,12 +11,14 @@ public class Game {
 	private Player player;
 	private Colors[] sequence;
 	private int attempts;
+	private boolean win;
 	
 	public Game(Player player, Difficulty difficulty, Colors[] sequence) {
 		this.player = player;
 		this.difficulty = difficulty;
 		this.sequence = sequence;
 		this.attempts = 0;
+		this.win = false;
 	}
 
 	public Player getPlayer() {
@@ -38,4 +40,13 @@ public class Game {
 	public void setAttempts() {
 		attempts++;
 	}
+	
+	public boolean getWin() {
+		return win;
+	}
+	
+	public void setWin(boolean winCondition) {
+		this.win = winCondition;
+	}
+	
 }

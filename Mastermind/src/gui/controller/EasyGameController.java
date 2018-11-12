@@ -1,5 +1,7 @@
 package gui.controller;
 
+import java.io.IOException;
+
 import game.Master;
 import game.enumerators.Difficulty;
 import javafx.fxml.FXML;
@@ -31,11 +33,11 @@ public class EasyGameController extends GameController{
 	@FXML
 	protected void selectColor(MouseEvent event) {
 		Circle pinSelected = (Circle)event.getSource();
-		//disablePin(pinSelected);
-		for (int i = 0; i < sequence.getChildren().size(); i++) {
-			Circle sequencePin = (Circle) sequence.getChildren().get(i);
-			if (sequencePin.getFill() == Paint.valueOf(WHITE_COLOR)) {
-				sequencePin.setFill(pinSelected.getFill());
+		for (int i = 0; i < SEQUENCE_LENGTH; i++) {
+			Circle sequenceSlot = (Circle) sequence.getChildren().get(i);
+			if (sequenceSlot.getFill() == Paint.valueOf(WHITE_COLOR)) {
+				sequenceSlot.setFill(pinSelected.getFill());
+				sequenceSlot.getProperties().put("currentColor", pinSelected.getProperties().get("defaultColor"));
 				disablePin(pinSelected);
 				break;
 			}
@@ -43,13 +45,32 @@ public class EasyGameController extends GameController{
 	}
 	
 	@FXML
-	protected void checkSequence() {
+	protected void checkSequence() throws IOException {
 		if(isSequenceCompleted(sequence)) {
-			GridPane previousSequence = drawer.createPreviousSequence(sequence, PREVIOUS_SEQUENCE_RADIUS, HINTPANE_ROW_NUMBER, HINTPANE_COLUMN_NUMBER);
+			int[] result = master.checkSequence(convertToColors());
+			GridPane previousSequence = drawer.createPreviousSequence(sequence, PREVIOUS_SEQUENCE_RADIUS, HINTPANE_ROW_NUMBER, HINTPANE_COLUMN_NUMBER, result);
 			previousSequence.setHgap(5);
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
 			enableAllPins();
+			if(master.getGame().getWin()) {
+				Alert win = new Alert(AlertType.INFORMATION);
+				win.setTitle("Il coglione ha vinto!");
+				win.setHeaderText(null);
+				win.setContentText("Congratz! You won the mongolino d'oro!");
+
+				win.showAndWait();
+				SceneController.showMainMenu();
+			}
+			else if(!(master.getGame().getWin()) && master.getGame().getAttempts() == master.getGame().getDifficulty().getAttempts()){
+				Alert lose = new Alert(AlertType.INFORMATION);
+				lose.setTitle("Il coglione ha perso, surclassato, morto!");
+				lose.setHeaderText(null);
+				lose.setContentText("Congratz! YOU DIED!");
+
+				lose.showAndWait();
+				SceneController.showMainMenu();
+			}
 		}
 		else {
 			Alert alert = new Alert(AlertType.INFORMATION);

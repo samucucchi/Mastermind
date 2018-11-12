@@ -119,18 +119,35 @@ public abstract class GameController {
 	/*user hits the check button:
 	 *prints the sequence and the int grid in the previousSequences container*/
 	@FXML
-	protected void checkSequence() {
+	protected void checkSequence() throws IOException {
 		if(isSequenceCompleted(sequence)) {
 			/*gets a copy of the sequence*/
-			GridPane previousSequence = drawer.createPreviousSequence(sequence, previousSequenceCircleRadius, HINTPANE_ROW_NUMBER, hintPane_column_number);
 			//convert sequence to enums
-			convertToColors();
-			//masterchecksequence
+			int[] result = master.checkSequence(convertToColors());
+			GridPane previousSequence = drawer.createPreviousSequence(sequence, previousSequenceCircleRadius, HINTPANE_ROW_NUMBER, hintPane_column_number, result);
 			previousSequence.setHgap(5);
 			/*adds the sequence into the container*/
 			previousSequences.getChildren().add(previousSequence);
 			/*clears the current sequence*/
 			clearSequence(sequence);
+			if(master.getGame().getWin()) {
+				Alert win = new Alert(AlertType.INFORMATION);
+				win.setTitle("Il coglione ha vinto!");
+				win.setHeaderText(null);
+				win.setContentText("Congratz! You won the mongolino d'oro!");
+
+				win.showAndWait();
+				SceneController.showMainMenu();
+			}
+			else if(!(master.getGame().getWin()) && (master.getGame().getAttempts() == master.getGame().getDifficulty().getAttempts())){
+				Alert lose = new Alert(AlertType.INFORMATION);
+				lose.setTitle("Il coglione ha perso, surclassato, morto!");
+				lose.setHeaderText(null);
+				lose.setContentText("Congratz! YOU DIED!");
+
+				lose.showAndWait();
+				SceneController.showMainMenu();
+			}
 		}
 		else {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -168,8 +185,8 @@ public abstract class GameController {
 	protected void enablePin(Paint color) {
 		for(int i = 0; i < inputPins.getChildren().size(); i++) {
 			Circle currentCircle = (Circle)inputPins.getChildren().get(i);
-			Paint defaultColor = (Paint)currentCircle.getProperties().get("defaultColor");
-			if(color == defaultColor) {
+			String defaultColor = (String)currentCircle.getProperties().get("defaultColor");
+			if(color == Paint.valueOf(defaultColor)) {
 				currentCircle.setFill(color);
 			}
 		}
@@ -198,7 +215,7 @@ public abstract class GameController {
 		return true;
 	}
 	
-	protected void convertToColors() {
+	protected Colors[] convertToColors() {
 		Colors[] sequenceToCheck = new Colors[sequence_length];
 		for(int i = 0; i < sequence_length; i++) {
 			Circle pin = (Circle)sequence.getChildren().get(i);
@@ -208,6 +225,6 @@ public abstract class GameController {
 			Colors colorToCheck = Colors.valueOf(color);
 			sequenceToCheck[i] = colorToCheck;
 		}
-		master.checkSequence(sequenceToCheck);
+		return sequenceToCheck;
 	}
 }
