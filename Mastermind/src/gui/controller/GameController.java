@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import game.Master;
 import game.enumerators.Colors;
+import game.stats.StatsModifier;
 import gui.Drawer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -42,7 +43,9 @@ public abstract class GameController {
 	
 	protected final int INPUT_PINS_ROWS = 4;
 	
-	protected final Drawer drawer = new Drawer();
+	protected Drawer drawer = new Drawer();
+	
+	protected StatsModifier statsModifier = new StatsModifier();
 	
 	protected Master master;
 	
@@ -58,6 +61,11 @@ public abstract class GameController {
 	
 	/*right half of the screen*/
 	@FXML protected VBox previousSequences;
+	
+	public GameController() {
+		this.drawer = new Drawer();
+		this.statsModifier = new StatsModifier();
+	}
 	
 	/*intitializes and draws input pins*/
 	@FXML
@@ -163,9 +171,7 @@ public abstract class GameController {
 	@FXML
 	protected void removeColor(MouseEvent event) {
 		Circle pinToRemove = (Circle)event.getSource();
-		//Paint color = pinToRemove.getFill();
 		disablePin(pinToRemove);
-		//enablePin(color);
 	}
 	
 

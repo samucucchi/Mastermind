@@ -15,6 +15,7 @@ public class HardGameController extends GameController{
 	final int SEQUENCE_LENGTH = 6;
 	
 	public HardGameController() {
+		super();
 		super.master = new Master(Difficulty.HARD, new Player("ciao"));
 		super.sequenceCircleRadius = this.SEQUENCE_RADIUS;
 		super.previousSequenceCircleRadius = this.PREVIOUS_SEQUENCE_RADIUS;

@@ -6,6 +6,7 @@ import java.util.Scanner;
 import game.enumerators.Colors;
 import game.enumerators.Difficulty;
 import game.exception.ExceptionMain;
+import game.stats.StatsModifier;
 
 public class Main {
 	static Scanner sc = new Scanner(System.in);

@@ -24,6 +24,7 @@ public class EasyGameController extends GameController{
 	final int SEQUENCE_LENGTH = 4;
 	
 	public EasyGameController() {
+		super();
 		super.master = new Master(Difficulty.EASY, new Player("ciao"));
 		super.sequenceCircleRadius = this.SEQUENCE_RADIUS;
 		super.previousSequenceCircleRadius = this.PREVIOUS_SEQUENCE_RADIUS;
