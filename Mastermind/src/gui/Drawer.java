@@ -57,6 +57,7 @@ public class Drawer {
 			previousSequence.add(previousPin, i, 0);
 		}
 		previousSequence.add(createHintPane(rows, columns, radius, result), sequence.getChildren().size() + 1, 0);
+		previousSequence.setHgap(5);
 		return previousSequence;
 	}
 }

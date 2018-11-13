@@ -5,13 +5,9 @@ import java.io.IOException;
 import game.Master;
 import game.enumerators.Difficulty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import player.Player;
 
 public class EasyGameController extends GameController {
 
@@ -24,8 +20,8 @@ public class EasyGameController extends GameController {
 	final int SEQUENCE_LENGTH = 4;
 
 	public EasyGameController() {
-		super();
-		super.master = new Master(Difficulty.EASY, new Player("ciao"));
+		// EasyGameController's superclass (i.e. GameController) attributes override;
+		super.master = new Master(Difficulty.EASY);
 		super.sequence_circle_radius = this.SEQUENCE_CIRCLE_RADIUS;
 		super.previous_sequence_circle_radius = this.PREVIOUS_SEQUENCE_CIRCLE_RADIUS;
 		super.hintPane_column_number = this.HINTPANE_COLUMN_NUMBER;
@@ -63,8 +59,11 @@ public class EasyGameController extends GameController {
 
 	@FXML
 	protected void checkSequence() throws IOException {
+			boolean validSequence = isSequenceCompleted(sequence);
+			if (validSequence) {
+				enableAllPins();
+			}		
 			super.checkSequence();
-			enableAllPins();
 	}
 	
 	protected void enablePin(Paint color) {

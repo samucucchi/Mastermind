@@ -2,7 +2,6 @@ package gui.controller;
 
 import game.Master;
 import game.enumerators.Difficulty;
-import player.Player;
 
 public class HardGameController extends GameController{
 
@@ -16,7 +15,7 @@ public class HardGameController extends GameController{
 	
 	public HardGameController() {
 		super();
-		super.master = new Master(Difficulty.HARD, new Player("ciao"));
+		super.master = new Master(Difficulty.HARD);
 		super.sequence_circle_radius = this.SEQUENCE_RADIUS;
 		super.previous_sequence_circle_radius = this.PREVIOUS_SEQUENCE_RADIUS;
 		super.hintPane_column_number = this.HINTPANE_COLUMN_NUMBER;
