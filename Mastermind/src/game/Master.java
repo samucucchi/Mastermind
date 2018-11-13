@@ -14,19 +14,17 @@ public class Master {
 	public Master(Difficulty difficulty) {
 		this.game = new Game(difficulty, generateSequence(difficulty));
 
-		// TODO remove this part (prints in terminal the game sequence
+		// TODO cancellare questi println
 		for (int i = 0; i < difficulty.getSequenceLength(); i++) {
 			System.out.print(game.getSequence()[i] + " ");
 		}
 		System.out.println();
 	}
 
-	/**
-	 * @return the sequence generated, basing on the difficulty selected before
-	 */
+	// Returns the generated sequence, based on the selected difficulty
 	public Colors[] generateSequence(Difficulty difficulty) {
 		if (difficulty == Difficulty.EASY) {
-			// generates game sequence with no repetitions
+			// difficulty is easy -> generates game sequence with no repetitions
 			return generateEasySequence(difficulty);
 		} else {
 			// difficulty is medium or hard -> generates game sequence with repetitions
@@ -34,29 +32,23 @@ public class Master {
 		}
 	}
 
-	/**
-	 * Generates a sequence for easy difficulty
-	 * 
-	 * @return the sequence generated
-	 */
+	
+	// Generates a sequence for easy difficulty (repetitions not allowed)
+	// and returns the generated sequence
 	private Colors[] generateEasySequence(Difficulty difficulty) {
-		// TODO: test
 		Colors[] easySequence = new Colors[difficulty.getSequenceLength()];
-		List<Colors> notInserted = new ArrayList<Colors>(Arrays.asList(Colors.values()));
+		List<Colors> notinputSequenceerted = new ArrayList<Colors>(Arrays.asList(Colors.values()));
 		for (int i = 0; i < difficulty.getSequenceLength(); i++) {
-			// insert into colors the remaining not inserted elements into notInserted
-			easySequence[i] = notInserted.remove(new Random().nextInt(notInserted.size()));
+			// inputSequenceert the remaining not inputSequenceerted elements (i.e. colors) into notinputSequenceerted
+			easySequence[i] = notinputSequenceerted.remove(new Random().nextInt(notinputSequenceerted.size()));
 		}
 		return easySequence;
 	}
 
-	/**
-	 * Generates a sequence of medium or hard difficulty
-	 * 
-	 * @return the sequence generated
-	 */
+	
+	// Generates a sequence for medium or hard difficulty (repetitions allowed)
+	// return the generated sequence
 	private Colors[] generateHardSequence(Difficulty difficulty) {
-		// TODO test
 		Colors[] hardSequence = new Colors[difficulty.getSequenceLength()];
 		for (int i = 0; i < difficulty.getSequenceLength(); i++) {
 			// randomly picks an element (repetitions are allowed) from the values in Colors
@@ -65,26 +57,32 @@ public class Master {
 		return hardSequence;
 	}
 
-	/**
-	 * @param ins : array containing the values inserted by the player
-	 * @return how many values have been guessed in right or wrong position
-	 */
-
-	public int[] checkSequence(Colors[] ins) {
+	
+	// Given an input sequence, returns an array int[2] containing:
+	// 1 - right colors in right positions;
+	// 2 - right colors in wrong positions;
+	public int[] checkSequence(Colors[] inputSequence) {
+		
 		int rightPos = 0;	// right colors in right position
 		int wrongPos = 0;	// right colors in wrong position
 		int[] result = { rightPos, wrongPos }; // array of two integers containing the result
-
-		Colors[] checkedSequence = game.getSequence().clone(); //
-		rightPos = getRightPosition(ins, checkedSequence);
+		
+		// temporary sequence that's going to be modified for analysis purposes
+		Colors[] checkedSequence = game.getSequence().clone();
+		
+		rightPos = getRightPosition(inputSequence, checkedSequence);
 		result[0] = rightPos;
-		if (rightPos != ins.length) {
-			wrongPos = getWrongPosition(ins, checkedSequence);
+		// check if all the right colors are in the right positions
+		if (rightPos != inputSequence.length) {
+			// if not, checks for right colors in right positions
+			wrongPos = getWrongPosition(inputSequence, checkedSequence);
 			result[1] = wrongPos;
 		} else {
+			// else set game's "win" attribute as true
 			game.setWin(true);
 			return result;
 		}
+		// TODO cancellare questi println
 		System.out.println("Giusti: " + rightPos);
 		System.out.println("Sbagliati: " + wrongPos);
 		game.setAttempts();
@@ -94,24 +92,30 @@ public class Master {
 		return result;
 	}
 
-	public int getRightPosition(Colors[] ins, Colors[] checkedSequence) {
+	// checks which color is guessed right and in the right position
+	// then changes the two sequences' correct elements' values to null
+	// so that they won't be counted again after
+	public int getRightPosition(Colors[] inputSequence, Colors[] checkedSequence) {
 		int counter = 0;
-		for (int i = 0; i < ins.length; i++) {
-			if (ins[i] == checkedSequence[i]) {
+		for (int i = 0; i < inputSequence.length; i++) {
+			if (inputSequence[i] == checkedSequence[i]) {
 				counter++;
-				ins[i] = null;
+				inputSequence[i] = null;
 				checkedSequence[i] = null;
 			}
 		}
 		return counter;
 	}
 
-	public int getWrongPosition(Colors[] ins, Colors[] checkedSequence) {
+	// checks which color is guessed right but in the position
+	// then changes the game's sequence's correct element's value to null
+	// so that it won't be counted again after
+	public int getWrongPosition(Colors[] inputSequence, Colors[] checkedSequence) {
 		int counter = 0;
-		for (int i = 0; i < ins.length; i++) {
-			if (ins[i] != null) {
-				for (int c = 0; c < ins.length; c++) {
-					if (ins[i] == checkedSequence[c]) {
+		for (int i = 0; i < inputSequence.length; i++) {
+			if (inputSequence[i] != null) {
+				for (int c = 0; c < inputSequence.length; c++) {
+					if (inputSequence[i] == checkedSequence[c]) {
 						checkedSequence[c] = null;
 						counter++;
 						break;
