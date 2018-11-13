@@ -13,7 +13,7 @@ public class StatsModifier {
 	private double[][] stats;
 	private final int DIFFICULTY_NUMBER = 3;
 	private final int OPTIONS_NUMBER = 5;
-	private final String PATH = "src/game/stats/stats.txt";
+	private final String PATH = "/src/game/stats/stats.txt";
 
 	public StatsModifier() {
 		this.stats = new double[DIFFICULTY_NUMBER][OPTIONS_NUMBER];
