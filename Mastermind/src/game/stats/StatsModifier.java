@@ -66,7 +66,6 @@ public class StatsModifier {
 				writer.write(stats[i][j] + "\n");
 			}
 		}
-	     
 	    writer.close();
 	}
 
