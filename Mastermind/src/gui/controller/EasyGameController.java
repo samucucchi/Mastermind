@@ -55,18 +55,18 @@ public class EasyGameController extends GameController{
 			enableAllPins();
 			if(master.getGame().getWin()) {
 				Alert win = new Alert(AlertType.INFORMATION);
-				win.setTitle("Il coglione ha vinto!");
+				win.setTitle("Victory");
 				win.setHeaderText(null);
-				win.setContentText("Congratz! You won the mongolino d'oro!");
+				win.setContentText("You win!!");
 
 				win.showAndWait();
 				SceneController.showMainMenu();
 			}
 			else if(!(master.getGame().getWin()) && master.getGame().getAttempts() == master.getGame().getDifficulty().getAttempts()){
 				Alert lose = new Alert(AlertType.INFORMATION);
-				lose.setTitle("Il coglione ha perso, surclassato, morto!");
+				lose.setTitle("Defeat");
 				lose.setHeaderText(null);
-				lose.setContentText("Congratz! YOU DIED!");
+				lose.setContentText("You loose!");
 
 				lose.showAndWait();
 				SceneController.showMainMenu();

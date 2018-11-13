@@ -102,10 +102,6 @@ public class Master {
 				ins[i] = null;
 				checkedSequence[i] = null;
 			}
-			if (counter == ins.length) { // if the hole sequence has been correctly guessed, end the game
-				System.out.println("CONGRATS, YOU WON!");
-				break;
-			}
 		}
 		return counter;
 	}
