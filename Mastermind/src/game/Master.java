@@ -112,6 +112,7 @@ public class Master {
 			if (ins[i] != null) {
 				for (int c = 0; c < ins.length; c++) {
 					if (ins[i] == checkedSequence[c]) {
+						checkedSequence[c] = null;
 						counter++;
 						break;
 					}

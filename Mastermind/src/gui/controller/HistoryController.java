@@ -32,14 +32,14 @@ public class HistoryController {
 	private ComboBox<String> comboBox;
 	
 	public void initialize() {
-		// comboBox elements resest and update
+		// comboBox elements reset and update
 	    comboBox.getItems().clear();
 	    comboBox.getItems().addAll("Easy", "Medium", "Hard");
 	    // event listener for the comboBox
-	    // TODO change println with actual code!!!
 	    comboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 	        @Override public void changed(ObservableValue<? extends String> selected, String oldDiff, String newDiff) {
 	          if (newDiff != null) {
+	        	  // whenever the comboBox selected item gets changed the TextFields get updated
 	        	  Difficulty difficulty = Difficulty.valueOf(newDiff.toUpperCase());
 	        	  System.out.println(difficulty);
 	        	  updateValues(statsModifier.getStats(difficulty));
@@ -48,12 +48,13 @@ public class HistoryController {
 	    });
 	}
 	
+	// goes back to main menu
 	@FXML
 	protected void goToMenu() throws IOException {
 		SceneController.showMenu("../views/MainMenu.fxml");
 	}
 	
-	
+	// updates TextFields values based on the difficulty comboBox selected item
 	public void updateValues(double[] stats) {
 		wins.setText(Double.toString(stats[0]));
 		losses.setText(Double.toString(stats[1]));
