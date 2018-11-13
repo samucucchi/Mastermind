@@ -13,14 +13,14 @@
    <children>
       <ImageView fitHeight="670.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/MMBackground.jpg" />
+            <Image url="@../../gui/images/MMBackground.jpg" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../images/MMlogo.jpg" />
+                  <Image url="@../../gui/images/MMlogo.jpg" />
                </image>
             </ImageView>
             <Text fill="#00d2ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose game difficulty ">
