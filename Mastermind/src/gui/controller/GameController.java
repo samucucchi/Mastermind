@@ -153,6 +153,7 @@ public abstract class GameController {
 			win.setContentText("You win!!");
 			win.showAndWait();
 			SceneController.showMenu("../views/MainMenu.fxml");
+			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), true, master.getGame().getAttempts());
 		}
 	}
 	
@@ -164,6 +165,7 @@ public abstract class GameController {
 			lose.setContentText("You loose!");
 			lose.showAndWait();
 			SceneController.showMenu("../views/MainMenu.fxml");
+			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), false, master.getGame().getAttempts());
 		}
 	}
 

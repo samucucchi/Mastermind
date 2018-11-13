@@ -56,14 +56,9 @@ public class HistoryController {
 	
 	public void updateValues(double[] stats) {
 		wins.setText(Double.toString(stats[0]));
-		wins.setStyle("-fx-text-inner-color: black;");
 		losses.setText(Double.toString(stats[1]));
-		losses.setStyle("-fx-text-inner-color: black;");
 		average.setText(Double.toString(stats[2]));
-		average.setStyle("-fx-text-inner-color: black;");
 		best.setText(Double.toString(stats[3]));
-		best.setStyle("-fx-text-inner-color: black;");
 		worst.setText(Double.toString(stats[4]));
-		worst.setStyle("-fx-text-inner-color: black;");
 	}
 }

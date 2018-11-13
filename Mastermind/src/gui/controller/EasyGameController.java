@@ -77,6 +77,7 @@ public class EasyGameController extends GameController {
 			/*adds the sequence into the container*/
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
+			enableAllPins();
 			checkWin();
 			checkAttemps();
 		}
