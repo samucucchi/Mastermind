@@ -137,7 +137,6 @@ public abstract class GameController {
 			//convert sequence to enums
 			int[] result = master.checkSequence(convertToColors());
 			GridPane previousSequence = drawer.createPreviousSequence(sequence, previous_sequence_circle_radius, HINTPANE_ROW_NUMBER, hintPane_column_number, result);
-			previousSequence.setHgap(5);
 			/*adds the sequence into the container*/
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);

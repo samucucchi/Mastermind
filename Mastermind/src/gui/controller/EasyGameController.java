@@ -5,7 +5,10 @@ import java.io.IOException;
 import game.Master;
 import game.enumerators.Difficulty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
@@ -59,11 +62,24 @@ public class EasyGameController extends GameController {
 
 	@FXML
 	protected void checkSequence() throws IOException {
-			boolean validSequence = isSequenceCompleted(sequence);
-			if (validSequence) {
-				enableAllPins();
-			}		
-			super.checkSequence();
+		if(!(isSequenceCompleted(sequence))) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Sequence error");
+			alert.setHeaderText(null);
+			alert.setContentText("Please, complete the sequence THEN press Check button.");
+			alert.showAndWait();
+			}
+		else {
+			/*gets a copy of the sequence*/
+			//convert sequence to enums
+			int[] result = master.checkSequence(convertToColors());
+			GridPane previousSequence = drawer.createPreviousSequence(sequence, previous_sequence_circle_radius, HINTPANE_ROW_NUMBER, hintPane_column_number, result);
+			/*adds the sequence into the container*/
+			previousSequences.getChildren().add(previousSequence);
+			clearSequence(sequence);
+			checkWin();
+			checkAttemps();
+		}
 	}
 	
 	protected void enablePin(Paint color) {
