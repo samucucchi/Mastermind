@@ -31,7 +31,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Text>
-            <Button fx:id="easy" maxHeight="100.0" maxWidth="370.0" minHeight="100.0" minWidth="370.0" mnemonicParsing="false" onAction="#startGame" prefHeight="100.0" prefWidth="370.0" style="-fx-background-color: #00FF00; -fx-border-color: #000000;" text="Easy">
+            <Button fx:id="easy" maxHeight="100.0" maxWidth="370.0" minHeight="100.0" minWidth="370.0" mnemonicParsing="false" onAction="#startGame" prefHeight="100.0" prefWidth="370.0" style="-fx-background-color: #00FF00; -fx-border-color: #000000; -fx-background-insets: 0;" text="Easy">
                <VBox.margin>
                   <Insets bottom="50.0" />
                </VBox.margin>
@@ -39,7 +39,7 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Button>
-            <Button fx:id="normal" layoutX="10.0" layoutY="10.0" maxHeight="100.0" maxWidth="370.0" minHeight="100.0" minWidth="370.0" mnemonicParsing="false" onAction="#startGame" prefHeight="100.0" prefWidth="370.0" style="-fx-background-color: #FFFF00; -fx-border-color: #000000;" text="Medium">
+            <Button fx:id="normal" layoutX="10.0" layoutY="10.0" maxHeight="100.0" maxWidth="370.0" minHeight="100.0" minWidth="370.0" mnemonicParsing="false" onAction="#startGame" prefHeight="100.0" prefWidth="370.0" style="-fx-background-color: #FFFF00; -fx-border-color: #000000; -fx-background-insets: 0;" text="Medium">
                <VBox.margin>
                   <Insets bottom="50.0" />
                </VBox.margin>
@@ -47,9 +47,17 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Button>
-            <Button fx:id="hard" layoutX="88.0" layoutY="423.0" maxHeight="100.0" maxWidth="370.0" minHeight="100.0" minWidth="370.0" mnemonicParsing="false" onAction="#startGame" prefHeight="100.0" prefWidth="370.0" style="-fx-background-color: #FF0000; -fx-border-color: #000000;" text="Hard">
+            <Button fx:id="hard" layoutX="88.0" layoutY="423.0" maxHeight="100.0" maxWidth="370.0" minHeight="100.0" minWidth="370.0" mnemonicParsing="false" onAction="#startGame" prefHeight="100.0" prefWidth="370.0" style="-fx-background-color: #FF0000; -fx-border-color: #000000; -fx-background-insets: 0;" text="Hard">
                <font>
                   <Font name="System Bold" size="30.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#goToMenu" text="Menu">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Gadugi" size="15.0" />
                </font>
             </Button>
          </children>

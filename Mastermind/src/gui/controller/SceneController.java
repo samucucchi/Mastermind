@@ -11,34 +11,21 @@ import javafx.stage.Stage;
 public class SceneController {
 
 	public static Stage primaryStage;
-	public static Scene currentScene;
 	 
 	public static void start(Stage primaryStage) throws Exception {
 		SceneController.primaryStage = primaryStage;
-		showMainMenu();
+		showMenu("../views/MainMenu.fxml");
 		SceneController.primaryStage.setTitle("MasterMind");
 		SceneController.primaryStage.show();
 		SceneController.primaryStage.setResizable(false);
 	}
 	
-	public static void showMainMenu() throws IOException {
-		StackPane mainMenu = (StackPane)loadView("../views/MainMenu.fxml");
+	public static void showMenu(String path) throws IOException {
+		StackPane mainMenu = (StackPane)loadView(path);
 		SceneController.primaryStage.setScene(new Scene(mainMenu));
 		SceneController.primaryStage.setResizable(false);
 	}
 	
-	public static void showHistoryMenu() throws IOException {
-		StackPane historyMenu = (StackPane)loadView("../views/HistoryMenu.fxml");
-		SceneController.primaryStage.setScene(new Scene(historyMenu));
-		SceneController.primaryStage.setResizable(false);
-	}
-	
-	public static void showDifficultyMenu() throws IOException {
-		StackPane difficultyMenu = (StackPane)loadView("../views/DifficultyMenu.fxml");
-		SceneController.primaryStage.setScene(new Scene(difficultyMenu));
-		SceneController.primaryStage.setResizable(false);
-	}
-
 	public static void showGame(String difficulty) throws IOException{
 		String gamePath = "../views/Game.fxml";
 		GameController controller;

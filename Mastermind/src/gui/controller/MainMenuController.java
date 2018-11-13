@@ -10,11 +10,11 @@ public class MainMenuController {
 	//annotazione per il file fxml
 	@FXML
 	private void play(ActionEvent event) throws IOException {
-		SceneController.showDifficultyMenu();
+		SceneController.showMenu("../views/DifficultyMenu.fxml");
 	}
 	
 	@FXML
 	private void showHistory(ActionEvent event) throws IOException{
-		SceneController.showHistoryMenu();
+		SceneController.showMenu("../views/HistoryMenu.fxml");
 	}
 }

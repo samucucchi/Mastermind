@@ -22,9 +22,9 @@ public abstract class GameController {
 	/*input pin radius is fixed*/
 	protected final int INPUT_PIN_RADIUS = 25;
 	
-	protected double sequenceCircleRadius;
+	protected double sequence_circle_radius;
 	
-	protected int previousSequenceCircleRadius;
+	protected int previous_sequence_circle_radius;
 	
 	protected int hintPane_column_number;
 	
@@ -33,11 +33,7 @@ public abstract class GameController {
 	protected final int HINTPANE_ROW_NUMBER = 2;
 	
 	protected final String WHITE_COLOR = "white";
-	
-	protected final int COLORS_NUMBER = 8;
-	
-	protected final int PINS_COLUMNS = 2;
-	
+			
 	protected final int INPUT_PINS_COLUMNS = 2;
 	
 	protected final int INPUT_PINS_ROWS = 4;
@@ -89,18 +85,19 @@ public abstract class GameController {
 		double dimension = 250/sequence_length;
 		sequence = drawer.createGrid(1, sequence_length, dimension);
 		for(int i = 0; i < sequence_length; i++) {
-			Circle sequenceCircle = drawer.createCircle(sequenceCircleRadius, Paint.valueOf(WHITE_COLOR));
+			Circle sequenceCircle = drawer.createCircle(sequence_circle_radius, Paint.valueOf(WHITE_COLOR));
 			sequenceCircle.getProperties().put("currentColor", "white");
 			sequenceCircle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-				removeColor(event);
+				disablePin(event);
 			});
 			sequence.add(sequenceCircle, i, 0);
 		}
 		sequenceContainer.getChildren().add(sequence);
 	}
 	
-	/*user clicks a pin:
-	 * the color chosen is inserted into the sequence*/
+	/* When user clicks on a pin
+	 * the color chosen is inserted into the first 
+	 * empty circle of the sequence*/
 	@FXML
 	protected void selectColor(MouseEvent event) {
 		/*gets the origin circle*/
@@ -116,58 +113,52 @@ public abstract class GameController {
 		}
 	}
 	
-	/*user hits the check button:
-	 *prints the sequence and the int grid in the previousSequences container*/
+	/* When user hits the check button
+	 *prints the sequence and the hint grid in the previousSequences container*/
 	@FXML
 	protected void checkSequence() throws IOException {
-		if(isSequenceCompleted(sequence)) {
-			/*gets a copy of the sequence*/
-			//convert sequence to enums
-			int[] result = master.checkSequence(convertToColors());
-			GridPane previousSequence = drawer.createPreviousSequence(sequence, previousSequenceCircleRadius, HINTPANE_ROW_NUMBER, hintPane_column_number, result);
-			previousSequence.setHgap(5);
-			/*adds the sequence into the container*/
-			previousSequences.getChildren().add(previousSequence);
-			/*clears the current sequence*/
-			clearSequence(sequence);
-			if(master.getGame().getWin()) {
-				Alert win = new Alert(AlertType.INFORMATION);
-				win.setTitle("Victory");
-				win.setHeaderText(null);
-				win.setContentText("You win!!");
-
-				win.showAndWait();
-				SceneController.showMainMenu();
-			}
-			else if(!(master.getGame().getWin()) && (master.getGame().getAttempts() == master.getGame().getDifficulty().getAttempts())){
-				Alert lose = new Alert(AlertType.INFORMATION);
-				lose.setTitle("Defeat");
-				lose.setHeaderText(null);
-				lose.setContentText("You loose!");
-
-				lose.showAndWait();
-				SceneController.showMainMenu();
-			}
-		}
-		else {
+		if(!(isSequenceCompleted(sequence))) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Sequence error");
 			alert.setHeaderText(null);
-			alert.setContentText("Please, complete the sequence before presssing the Check button.");
-
+			alert.setContentText("Please, complete the sequence THEN press Check button.");
 			alert.showAndWait();
+			}
+		else {
+			/*gets a copy of the sequence*/
+			//convert sequence to enums
+			int[] result = master.checkSequence(convertToColors());
+			GridPane previousSequence = drawer.createPreviousSequence(sequence, previous_sequence_circle_radius, HINTPANE_ROW_NUMBER, hintPane_column_number, result);
+			previousSequence.setHgap(5);
+			/*adds the sequence into the container*/
+			previousSequences.getChildren().add(previousSequence);
+			clearSequence(sequence);
+			checkWin();
+			checkAttemps();
 		}
 	}
 	
-
-	@FXML
-	protected void removeColor(MouseEvent event) {
-		Circle pinToRemove = (Circle)event.getSource();
-		//Paint color = pinToRemove.getFill();
-		disablePin(pinToRemove);
-		//enablePin(color);
+	protected void checkWin() throws IOException{
+		if(master.getGame().getWin()) {
+			Alert win = new Alert(AlertType.INFORMATION);
+			win.setTitle("Victory");
+			win.setHeaderText(null);
+			win.setContentText("You win!!");
+			win.showAndWait();
+			SceneController.showMenu("../views/MainMenu.fxml");
+		}
 	}
 	
+	protected void checkAttemps() throws IOException {
+		if(master.getGame().getAttempts() == master.getGame().getDifficulty().getAttempts()){
+			Alert lose = new Alert(AlertType.INFORMATION);
+			lose.setTitle("Defeat");
+			lose.setHeaderText(null);
+			lose.setContentText("You loose!");
+			lose.showAndWait();
+			SceneController.showMenu("../views/MainMenu.fxml");
+		}
+	}
 
 	@FXML
 	protected void giveUp() throws IOException {
@@ -178,21 +169,13 @@ public abstract class GameController {
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
-			SceneController.showMainMenu();
+			SceneController.showMenu("../views/MainMenu.fxml");
 		}
 	}
 	
-	protected void enablePin(Paint color) {
-		for(int i = 0; i < inputPins.getChildren().size(); i++) {
-			Circle currentCircle = (Circle)inputPins.getChildren().get(i);
-			String defaultColor = (String)currentCircle.getProperties().get("defaultColor");
-			if(color == Paint.valueOf(defaultColor)) {
-				currentCircle.setFill(color);
-			}
-		}
-	}
 	
-	protected void disablePin(Circle pin) {
+	protected void disablePin(MouseEvent event) {
+		Circle pin = (Circle)event.getSource();
 		pin.setFill(Paint.valueOf(WHITE_COLOR));
 	}
 	

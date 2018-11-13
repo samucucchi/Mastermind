@@ -14,4 +14,9 @@ public class DifficultyController {
 		String difficulty = ((Button)event.getSource()).getId();
 		SceneController.showGame(difficulty);
 	}
+	
+	@FXML
+	protected void goToMenu() throws IOException {
+		SceneController.showMenu("../views/MainMenu.fxml");
+	}
 }

@@ -33,7 +33,7 @@ public class HistoryController {
 	
 	@FXML
 	protected void goToMenu() throws IOException {
-		SceneController.showMainMenu();
+		SceneController.showMenu("../views/MainMenu.fxml");
 	}
 	
 }

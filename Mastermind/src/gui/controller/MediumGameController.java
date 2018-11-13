@@ -16,8 +16,8 @@ public class MediumGameController extends GameController {
 	
 	public MediumGameController() {
 		super.master = new Master(Difficulty.MEDIUM, new Player("ciao"));
-		super.sequenceCircleRadius = this.SEQUENCE_RADIUS;
-		super.previousSequenceCircleRadius = this.PREVIOUS_SEQUENCE_RADIUS;
+		super.sequence_circle_radius = this.SEQUENCE_RADIUS;
+		super.previous_sequence_circle_radius = this.PREVIOUS_SEQUENCE_RADIUS;
 		super.hintPane_column_number = this.HINTPANE_COLUMN_NUMBER;
 		super.sequence_length = this.SEQUENCE_LENGTH;
 	}
