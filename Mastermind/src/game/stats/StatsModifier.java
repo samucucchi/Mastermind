@@ -2,6 +2,7 @@ package game.stats;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,67 +16,60 @@ public class StatsModifier {
 	private final int AVERAGE = 2;
 	private final int BEST = 3;
 	private final int WORST = 4;
-	
-	private double[][] stats;
+
+	private int[][] stats;
 	private final int DIFFICULTY_NUMBER = 3;
 	private final int OPTIONS_NUMBER = 5;
 	private final String PATH = "Mastermind/src/game/stats/stats.txt";
 
 	public StatsModifier() {
-		this.stats = new double[DIFFICULTY_NUMBER][OPTIONS_NUMBER];
+		this.stats = new int[DIFFICULTY_NUMBER][OPTIONS_NUMBER];
 		readStats();
 	}
 
+	// reads stats from file
 	private void readStats() {
 		BufferedReader br = null;
-		FileReader fr = null;
 
 		try {
-			fr = new FileReader(PATH);
-			br = new BufferedReader(fr);
+			br = new BufferedReader(new FileReader(PATH));
 
 			String line;
 
+			// inserts each file's value in stats matrix
 			for (int i = 0; i < DIFFICULTY_NUMBER; i++) {
 				for (int j = 0; j < OPTIONS_NUMBER; j++) {
 					line = br.readLine();
 					if (line != null) {
-						double statToInsert = Double.parseDouble(line);
+						int statToInsert = Integer.parseInt(line);
 						stats[i][j] = statToInsert;
-					} else {
-						System.out.println("shit");;
 					}
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-
-				if (fr != null) {
-					fr.close();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-
+			// closes buffered reader
+			br.close();
+			// catches exceptions
+		} catch (FileNotFoundException e) {
+			System.out.println("Can't open file \"" + PATH + "\".");
+		} catch (IOException ex) {
+			System.out.println("Error while reading file \"" + PATH + "\".");
 		}
 	}
-	
+
+	// writes stats to file
 	private void writeStats() throws IOException {
-	    BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
-	    for (int i = 0; i < DIFFICULTY_NUMBER; i++) {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
+		for (int i = 0; i < DIFFICULTY_NUMBER; i++) {
 			for (int j = 0; j < OPTIONS_NUMBER; j++) {
 				writer.write(stats[i][j] + "\n");
 			}
 		}
-	    writer.close();
+		writer.close();
 	}
 
-	public double[] getStats(Difficulty difficulty) {
+	// gets stats from file, based on selected difficulty
+	// (used in the HistoryController comboBox event handler)
+	public int[] getStats(Difficulty difficulty) {
 		switch (difficulty) {
 		case EASY:
 			return stats[0];
@@ -88,25 +82,45 @@ public class StatsModifier {
 		}
 
 	}
-	
-	public void setStats(double[] stat, boolean win, int attempts) throws IOException {
 
+	public void setStats(int[] stat, boolean win, int attempts) throws IOException {
+
+		// if it's a win, updates wins count, best score and worst score
 		if (win) {
 			stat[WINS]++;
-			
-			stat[AVERAGE] = (stat[AVERAGE] + attempts) / stat[WINS];
-			if ( (stat[BEST] > attempts) || (stat[BEST] == 0) ) {
+			if ((stat[BEST] > attempts) || (stat[BEST] == 0)) {
 				stat[BEST] = attempts;
 			}
 			if (stat[WORST] < attempts) {
 				stat[WORST] = attempts;
 			}
+
+			// if it's a loss, updates only losses count
 		} else {
-			
 			stat[LOSSES]++;
 		}
 
+		// updates average
+		// calculates arithmetic average
+		if (stat[WINS] + stat[LOSSES] < 2) {
+			stat[AVERAGE] = attempts;
+		} else {
+			stat[AVERAGE] = (stat[AVERAGE] + attempts) / 2;
+		}
+
+		// finally writes updated stats on the file
 		writeStats();
 	}
-	
+
+	// resets the stats, setting all the stats values to 0
+	// and writes them on the file
+	public void resetStats() throws IOException {
+		for (int i = 0; i < DIFFICULTY_NUMBER; i++) {
+			for (int j = 0; j < OPTIONS_NUMBER; j++) {
+				stats[i][j] = 0;
+			}
+		}
+		writeStats();
+	}
+
 }

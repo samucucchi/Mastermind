@@ -48,7 +48,7 @@
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin></Pane>
-                  <Button maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#checkSequence" prefHeight="50.0" prefWidth="250.0" text="Check">
+                  <Button maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#submitSequence" prefHeight="50.0" prefWidth="250.0" text="Check">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>

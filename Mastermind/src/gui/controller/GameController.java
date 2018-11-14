@@ -137,7 +137,7 @@ public abstract class GameController {
 	// When the player hits the check button
 	// prints the sequence and the "hint grid" in the previousSequences container
 	@FXML
-	protected void checkSequence() throws IOException {
+	protected void submitSequence() throws IOException {
 
 		if (!(isSequenceCompleted(sequence))) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -146,16 +146,20 @@ public abstract class GameController {
 			alert.setContentText("Please, complete the sequence THEN press Check button.");
 			alert.showAndWait();
 		} else {
+			
 			// gets a copy of the sequence and converts sequence to enums(Colors)
 			int[] result = master.checkSequence(convertSequenceToColors());
 			GridPane previousSequence = drawer.createPreviousSequence(sequence, previous_sequence_circle_radius,
 					HINTPANE_ROW_NUMBER, hintPane_column_number, result);
+			
 			// adds the sequence to the container
 			// then clears the sequence, checks if the player won
 			// and checks if the player reached the attemps limit (set by difficulty)
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
+			// checks game "win" property which only gets changed in master.checksequence()
 			checkWin();
+			// checks if game attemps reached the difficulty limit
 			checkAttemps();
 		}
 
@@ -222,6 +226,9 @@ public abstract class GameController {
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
+			// updates stats for the history menu setting game attemps equals to difficulty limit
+			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), false,
+								master.getGame().getDifficulty().getAttempts());
 			SceneController.showMenu("../views/MainMenu.fxml");
 		}
 

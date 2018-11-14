@@ -82,7 +82,7 @@ public class EasyGameController extends GameController {
 	// prints the sequence and the "hint grid" in the previousSequences container
 	@Override // now uses "enableAllPins()" if sequence is completed
 	@FXML
-	protected void checkSequence() throws IOException {
+	protected void submitSequence() throws IOException {
 		if (!(isSequenceCompleted(sequence))) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Sequence error");
@@ -102,7 +102,9 @@ public class EasyGameController extends GameController {
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
 			enableAllPins();
+			// checks game "win" property which only gets changed in master.checksequence()
 			checkWin();
+			// checks if game attemps reached the difficulty limit
 			checkAttemps();
 		}
 	}
