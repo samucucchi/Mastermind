@@ -53,7 +53,7 @@ public class HistoryController {
 	// goes back to main menu
 	@FXML
 	private void goToMenu() throws IOException {
-		SceneController.showMenu("../views/MainMenu.fxml");
+		SceneController.showMenu("/gui/views/MainMenu.fxml");
 	}
 	
 	//resets games history
@@ -67,7 +67,7 @@ public class HistoryController {
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			statsModifier.resetStats();
-			SceneController.showMenu("../views/HistoryMenu.fxml");
+			SceneController.showMenu("/gui/views/HistoryMenu.fxml");
 		}
 	}
 	

@@ -17,6 +17,6 @@ public class DifficultyController {
 	
 	@FXML
 	protected void goToMenu() throws IOException {
-		SceneController.showMenu("../views/MainMenu.fxml");
+		SceneController.showMenu("/gui/views/MainMenu.fxml");
 	}
 }

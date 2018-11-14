@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="900.0" fitWidth="555.0" pickOnBounds="true">
          <image>
-            <Image url="@../../gui/images/MMBackground.jpg" />
+            <Image url="/gui/images/MMBackground.jpg" />
          </image>
       </ImageView>
       <BorderPane id="pane" prefHeight="200.0" prefWidth="200.0">
@@ -26,7 +26,7 @@
                <children>
                   <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../gui/images/MMlogo.jpg" />
+                        <Image url="/gui/images/MMlogo.jpg" />
                      </image>
                   </ImageView>
                   <GridPane fx:id="inputPins" vgap="20.0">
