@@ -67,11 +67,15 @@ public class EasyGameController extends GameController {
 		enablePin(color);
 	}
 	
+	// When the player clicks on a pin, if the sequence is not already completed
+	// the color chosen is inserted into the first empty circle of the sequence
 	@Override // now also disables the input pin
 	@FXML
 	protected void selectColor(MouseEvent event) {
-		super.selectColor(event);
-		disablePin(event);
+		if(!isSequenceCompleted(sequence)) {
+			super.selectColor(event);
+			disablePin(event);
+		}
 	}
 	
 	// When the player hits the check button

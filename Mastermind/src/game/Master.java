@@ -63,6 +63,7 @@ public class Master {
 	// 2 - right colors in wrong positions;
 	public int[] checkSequence(Colors[] inputSequence) {
 		
+		game.setAttempts();
 		int rightPos = 0;	// right colors in right position
 		int wrongPos = 0;	// right colors in wrong position
 		int[] result = { rightPos, wrongPos }; // array of two integers containing the result
@@ -85,7 +86,6 @@ public class Master {
 		// TODO cancellare questi println
 		System.out.println("Giusti: " + rightPos);
 		System.out.println("Sbagliati: " + wrongPos);
-		game.setAttempts();
 		return result;
 	}
 

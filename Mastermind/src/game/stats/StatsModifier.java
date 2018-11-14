@@ -10,10 +10,16 @@ import game.enumerators.Difficulty;
 
 public class StatsModifier {
 
+	private final int WINS = 0;
+	private final int LOSSES = 1;
+	private final int AVERAGE = 2;
+	private final int BEST = 3;
+	private final int WORST = 4;
+	
 	private double[][] stats;
 	private final int DIFFICULTY_NUMBER = 3;
 	private final int OPTIONS_NUMBER = 5;
-	private final String PATH = "/src/game/stats/stats.txt";
+	private final String PATH = "Mastermind/src/game/stats/stats.txt";
 
 	public StatsModifier() {
 		this.stats = new double[DIFFICULTY_NUMBER][OPTIONS_NUMBER];
@@ -84,23 +90,20 @@ public class StatsModifier {
 	}
 	
 	public void setStats(double[] stat, boolean win, int attempts) throws IOException {
-		double[] values = new double[2];
 
 		if (win) {
-			values[0]++;
+			stat[WINS]++;
+			
+			stat[AVERAGE] = (stat[AVERAGE] + attempts) / stat[WINS];
+			if ( (stat[BEST] > attempts) || (stat[BEST] == 0) ) {
+				stat[BEST] = attempts;
+			}
+			if (stat[WORST] < attempts) {
+				stat[WORST] = attempts;
+			}
 		} else {
-			values[1]++;
-		}
-
-		for (int i = 0; i < values.length; i++) {
-			stat[i] += values[i];
-		}
-		stat[2] = (stat[2] + attempts) / stat[0];
-		if (stat[3] > attempts) {
-			stat[3] = attempts;
-		}
-		if (stat[4] < attempts) {
-			stat[4] = attempts;
+			
+			stat[LOSSES]++;
 		}
 
 		writeStats();
