@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import game.Master;
 import game.enumerators.Colors;
+import game.enumerators.Difficulty;
 import game.stats.StatsModifier;
 import gui.Drawer;
 import javafx.fxml.FXML;
@@ -138,7 +139,6 @@ public abstract class GameController {
 	// prints the sequence and the "hint grid" in the previousSequences container
 	@FXML
 	protected void submitSequence() throws IOException {
-
 		if (!(isSequenceCompleted(sequence))) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Sequence error");
@@ -146,14 +146,13 @@ public abstract class GameController {
 			alert.setContentText("Please, complete the sequence THEN press Check button.");
 			alert.showAndWait();
 		} else {
-			
 			// gets a copy of the sequence and converts sequence to enums(Colors)
 			int[] result = master.checkSequence(convertSequenceToColors());
 			GridPane previousSequence = drawer.createPreviousSequence(sequence, previous_sequence_circle_radius,
 					HINTPANE_ROW_NUMBER, hintPane_column_number, result);
-			
 			// adds the sequence to the container
-			// then clears the sequence, checks if the player won
+			// then clears the sequence and re-enables all the input pins
+			// then checks if the player won
 			// and checks if the player reached the attemps limit (set by difficulty)
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
@@ -161,9 +160,9 @@ public abstract class GameController {
 			if (!checkWin()) {
 				// checks if game attemps reached the difficulty limit
 				checkAttemps();
-			};
+			}
+			;
 		}
-
 	}
 
 	// checks if "win" attribute of game is true
@@ -229,9 +228,10 @@ public abstract class GameController {
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			// updates stats for the history menu setting game attemps equals to difficulty limit
+			// updates stats for the history menu setting game attemps equals to difficulty
+			// limit
 			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), false,
-								master.getGame().getDifficulty().getAttempts());
+					master.getGame().getDifficulty().getAttempts());
 			SceneController.showMenu("/gui/views/MainMenu.fxml");
 		}
 
@@ -239,10 +239,8 @@ public abstract class GameController {
 
 	// disables the clicked pin (used for both input and sequence pins)
 	protected void disablePin(MouseEvent event) {
-
 		Circle pin = (Circle) event.getSource();
 		pin.setFill(Paint.valueOf(WHITE_COLOR));
-
 	}
 
 	// clears the input sequence

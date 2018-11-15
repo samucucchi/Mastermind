@@ -56,6 +56,49 @@ public class EasyGameController extends GameController {
 		sequenceContainer.getChildren().add(sequence);
 	}
 
+	// When the player hits the check button
+	// prints the sequence and the "hint grid" in the previousSequences container
+	@Override // now also re-enables all input pins
+	@FXML
+	protected void submitSequence() throws IOException {
+		if (!(isSequenceCompleted(sequence))) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Sequence error");
+			alert.setHeaderText(null);
+			alert.setContentText("Please, complete the sequence THEN press Check button.");
+			alert.showAndWait();
+		} else {
+			// gets a copy of the sequence and converts sequence to enums(Colors)
+			int[] result = master.checkSequence(convertSequenceToColors());
+			GridPane previousSequence = drawer.createPreviousSequence(sequence, previous_sequence_circle_radius,
+					HINTPANE_ROW_NUMBER, hintPane_column_number, result);
+			// adds the sequence to the container
+			// then clears the sequence and re-enables all the input pins
+			// then checks if the player won
+			// and checks if the player reached the attemps limit (set by difficulty)
+			previousSequences.getChildren().add(previousSequence);
+			clearSequence(sequence);
+			// re-enables all the input pins
+			enableAllPins();
+			// checks game "win" property which only gets changed in master.checksequence()
+			if (!checkWin()) {
+				// checks if game attemps reached the difficulty limit
+				checkAttemps();
+			}
+			;
+		}
+	}
+
+	// enables all input pins
+	private void enableAllPins() {
+		for (int i = 0; i < inputPins.getChildren().size(); i++) {
+			Circle currentCircle = (Circle) inputPins.getChildren().get(i);
+			String defaultColor = (String) currentCircle.getProperties().get("defaultColor");
+			Paint color = Paint.valueOf(defaultColor);
+			currentCircle.setFill(color);
+		}
+	}
+
 	
 	// disables the clicked sequence circle
 	// and re-enables the input pin representing that color
@@ -77,38 +120,6 @@ public class EasyGameController extends GameController {
 			disablePin(event);
 		}
 	}
-	
-	// When the player hits the check button
-	// prints the sequence and the "hint grid" in the previousSequences container
-	@Override // now uses "enableAllPins()" if sequence is completed
-	@FXML
-	protected void submitSequence() throws IOException {
-		if (!(isSequenceCompleted(sequence))) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Sequence error");
-			alert.setHeaderText(null);
-			alert.setContentText("Please, complete the sequence THEN press Check button.");
-			alert.showAndWait();
-		} else {
-			// gets a copy of the sequence and converts sequence to enums(Colors)
-			int[] result = master.checkSequence(convertSequenceToColors());
-			GridPane previousSequence = drawer.createPreviousSequence(
-					sequence, previous_sequence_circle_radius,
-					HINTPANE_ROW_NUMBER, hintPane_column_number, result);
-			// adds the sequence to the container
-			// then clears the sequence and re-enables all the input pins
-			// then checks if the player won
-			// and checks if the player reached the attemps limit (set by difficulty)
-			previousSequences.getChildren().add(previousSequence);
-			clearSequence(sequence);
-			enableAllPins();
-			// checks game "win" property which only gets changed in master.checksequence()
-			if (!checkWin()) {
-				// checks if game attemps reached the difficulty limit
-				checkAttemps();
-			};
-		}
-	}
 
 	// enables single input pin
 	protected void enablePin(Paint color) {
@@ -124,14 +135,5 @@ public class EasyGameController extends GameController {
 		}
 	}
 
-	// enables all input pins
-	private void enableAllPins() {
-		for (int i = 0; i < inputPins.getChildren().size(); i++) {
-			Circle currentCircle = (Circle) inputPins.getChildren().get(i);
-			String defaultColor = (String) currentCircle.getProperties().get("defaultColor");
-			Paint color = Paint.valueOf(defaultColor);
-			currentCircle.setFill(color);
-		}
-	}
 
 }
