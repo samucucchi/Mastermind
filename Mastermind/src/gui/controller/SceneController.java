@@ -16,7 +16,7 @@ public class SceneController {
 	// every window is unresizable and has title "Mastermind"
 	public static void start(Stage pStage) throws Exception {
 		primaryStage = pStage;
-		showMenu("../views/MainMenu.fxml");
+		showMenu("/gui/views/MainMenu.fxml");
 		primaryStage.setTitle("MasterMind");
 		primaryStage.show();
 		primaryStage.setResizable(false);
@@ -33,7 +33,7 @@ public class SceneController {
 	// shows the game view, loads it and sets it's controller,
 	// based on the "difficulty" function's arguments
 	public static void showGame(String difficulty) throws IOException{
-		String gamePath = "../views/Game.fxml";
+		String gamePath = "/gui/views/Game.fxml";
 		GameController controller;
 		switch(difficulty) {
 		case "easy":

@@ -181,7 +181,7 @@ public abstract class GameController {
 			win.showAndWait();
 
 			// leads the player back to main menu
-			SceneController.showMenu("../views/MainMenu.fxml");
+			SceneController.showMenu("/gui/views/MainMenu.fxml");
 
 			// updates stats for the history menu
 			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), true,
@@ -207,7 +207,7 @@ public abstract class GameController {
 			lose.showAndWait();
 
 			// leads the player back to main menu
-			SceneController.showMenu("../views/MainMenu.fxml");
+			SceneController.showMenu("/gui/views/MainMenu.fxml");
 
 			// updates stats for the history menu
 			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), false,
@@ -232,7 +232,7 @@ public abstract class GameController {
 			// updates stats for the history menu setting game attemps equals to difficulty limit
 			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), false,
 								master.getGame().getDifficulty().getAttempts());
-			SceneController.showMenu("../views/MainMenu.fxml");
+			SceneController.showMenu("/gui/views/MainMenu.fxml");
 		}
 
 	}

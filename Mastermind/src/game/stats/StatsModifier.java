@@ -2,10 +2,20 @@ package game.stats;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.URISyntaxException;
+
+import javax.print.DocFlavor.URL;
 
 import game.enumerators.Difficulty;
 
@@ -20,7 +30,7 @@ public class StatsModifier {
 	private int[][] stats;
 	private final int DIFFICULTY_NUMBER = 3;
 	private final int OPTIONS_NUMBER = 5;
-	private final String PATH = "Mastermind/src/game/stats/stats.txt";
+	private final String PATH = "stats.txt";
 
 	public StatsModifier() {
 		this.stats = new int[DIFFICULTY_NUMBER][OPTIONS_NUMBER];
@@ -32,7 +42,7 @@ public class StatsModifier {
 		BufferedReader br = null;
 
 		try {
-			br = new BufferedReader(new FileReader(PATH));
+			br = new BufferedReader(new FileReader(new File(PATH)));
 
 			String line;
 
@@ -58,10 +68,11 @@ public class StatsModifier {
 
 	// writes stats to file
 	private void writeStats() throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
+		File file = new File(PATH);
+		PrintWriter writer = new PrintWriter(file);
 		for (int i = 0; i < DIFFICULTY_NUMBER; i++) {
 			for (int j = 0; j < OPTIONS_NUMBER; j++) {
-				writer.write(stats[i][j] + "\n");
+				writer.println(stats[i][j]);
 			}
 		}
 		writer.close();
