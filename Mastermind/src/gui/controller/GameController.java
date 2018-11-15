@@ -158,9 +158,10 @@ public abstract class GameController {
 			previousSequences.getChildren().add(previousSequence);
 			clearSequence(sequence);
 			// checks game "win" property which only gets changed in master.checksequence()
-			checkWin();
-			// checks if game attemps reached the difficulty limit
-			checkAttemps();
+			if (!checkWin()) {
+				// checks if game attemps reached the difficulty limit
+				checkAttemps();
+			};
 		}
 
 	}
@@ -168,7 +169,7 @@ public abstract class GameController {
 	// checks if "win" attribute of game is true
 	// if it is true, alerts the player that he won
 	// and leads him back to the main menu
-	protected void checkWin() throws IOException {
+	protected boolean checkWin() throws IOException {
 
 		if (master.getGame().getWin()) {
 
@@ -185,7 +186,9 @@ public abstract class GameController {
 			// updates stats for the history menu
 			statsModifier.setStats(statsModifier.getStats(master.getGame().getDifficulty()), true,
 					master.getGame().getAttempts());
+			return true;
 		}
+		return false;
 
 	}
 

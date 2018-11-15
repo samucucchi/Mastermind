@@ -103,9 +103,10 @@ public class EasyGameController extends GameController {
 			clearSequence(sequence);
 			enableAllPins();
 			// checks game "win" property which only gets changed in master.checksequence()
-			checkWin();
-			// checks if game attemps reached the difficulty limit
-			checkAttemps();
+			if (!checkWin()) {
+				// checks if game attemps reached the difficulty limit
+				checkAttemps();
+			};
 		}
 	}
 

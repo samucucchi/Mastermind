@@ -14,12 +14,12 @@ public class Master {
 	public Master(Difficulty difficulty) {
 		this.game = new Game(difficulty, generateSequence(difficulty));
 
-		/* if you want to cheat, uncommnet this code.
+		// if you want to cheat, uncommnet this code.
 		for (int i = 0; i < difficulty.getSequenceLength(); i++) {
 			System.out.print(game.getSequence()[i] + " ");
 		}
 		System.out.println();
-		*/
+		// */
 	}
 
 	// Returns the generated sequence, based on the selected difficulty
